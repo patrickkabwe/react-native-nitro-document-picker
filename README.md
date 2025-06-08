@@ -4,7 +4,7 @@ react-native-nitro-document-picker is a react native package built with Nitro
 
 [![Version](https://img.shields.io/npm/v/react-native-nitro-document-picker.svg)](https://www.npmjs.com/package/react-native-nitro-document-picker)
 [![Downloads](https://img.shields.io/npm/dm/react-native-nitro-document-picker.svg)](https://www.npmjs.com/package/react-native-nitro-document-picker)
-[![License](https://img.shields.io/npm/l/react-native-nitro-document-picker.svg)](https://github.com/patrickkabwe/react-native-nitro-document-picker/LICENSE)
+[![License](https://img.shields.io/npm/l/react-native-nitro-document-picker.svg)](https://github.com/patrickkabwe/react-native-nitro-document-picker/blob/main/LICENSE)
 
 ## Requirements
 
