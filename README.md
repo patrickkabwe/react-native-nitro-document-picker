@@ -11,9 +11,6 @@ react-native-nitro-document-picker is a react native package built with Nitro
 - React Native v0.76.0 or higher
 - Node 18.0.0 or higher
 
-> [!IMPORTANT]  
-> To Support `Nitro Views` you need to install React Native version v0.78.0 or higher.
-
 ## Installation
 
 ```bash
