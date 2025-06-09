@@ -39,7 +39,7 @@ namespace margelo::nitro::nitrodocumentpicker {
       static const auto fieldName = clazz->getField<jni::JString>("name");
       jni::local_ref<jni::JString> name = this->getFieldValue(fieldName);
       return NitroDocumentPickerResult(
-        path != nullptr ? std::make_optional(path->toStdString()) : std::nullopt,
+        path->toStdString(),
         base64 != nullptr ? std::make_optional(base64->toStdString()) : std::nullopt,
         name->toStdString()
       );
@@ -52,7 +52,7 @@ namespace margelo::nitro::nitrodocumentpicker {
     [[maybe_unused]]
     static jni::local_ref<JNitroDocumentPickerResult::javaobject> fromCpp(const NitroDocumentPickerResult& value) {
       return newInstance(
-        value.path.has_value() ? jni::make_jstring(value.path.value()) : nullptr,
+        jni::make_jstring(value.path),
         value.base64.has_value() ? jni::make_jstring(value.base64.value()) : nullptr,
         jni::make_jstring(value.name)
       );

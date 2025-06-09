@@ -22,7 +22,6 @@ data class NitroDocumentPickerOptions
   constructor(
     val types: Array<NitroDocumentType>,
     val multiple: Boolean?,
-    val output: NitroDocumentPickerOutput?,
     val maxFileSize: Double?
   ) {
   /* main constructor */

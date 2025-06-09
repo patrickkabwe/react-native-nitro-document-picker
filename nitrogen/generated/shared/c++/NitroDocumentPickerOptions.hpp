@@ -20,13 +20,10 @@
 
 // Forward declaration of `NitroDocumentType` to properly resolve imports.
 namespace margelo::nitro::nitrodocumentpicker { enum class NitroDocumentType; }
-// Forward declaration of `NitroDocumentPickerOutput` to properly resolve imports.
-namespace margelo::nitro::nitrodocumentpicker { enum class NitroDocumentPickerOutput; }
 
 #include <vector>
 #include "NitroDocumentType.hpp"
 #include <optional>
-#include "NitroDocumentPickerOutput.hpp"
 
 namespace margelo::nitro::nitrodocumentpicker {
 
@@ -37,12 +34,11 @@ namespace margelo::nitro::nitrodocumentpicker {
   public:
     std::vector<NitroDocumentType> types     SWIFT_PRIVATE;
     std::optional<bool> multiple     SWIFT_PRIVATE;
-    std::optional<NitroDocumentPickerOutput> output     SWIFT_PRIVATE;
     std::optional<double> maxFileSize     SWIFT_PRIVATE;
 
   public:
     NitroDocumentPickerOptions() = default;
-    explicit NitroDocumentPickerOptions(std::vector<NitroDocumentType> types, std::optional<bool> multiple, std::optional<NitroDocumentPickerOutput> output, std::optional<double> maxFileSize): types(types), multiple(multiple), output(output), maxFileSize(maxFileSize) {}
+    explicit NitroDocumentPickerOptions(std::vector<NitroDocumentType> types, std::optional<bool> multiple, std::optional<double> maxFileSize): types(types), multiple(multiple), maxFileSize(maxFileSize) {}
   };
 
 } // namespace margelo::nitro::nitrodocumentpicker
@@ -59,7 +55,6 @@ namespace margelo::nitro {
       return NitroDocumentPickerOptions(
         JSIConverter<std::vector<NitroDocumentType>>::fromJSI(runtime, obj.getProperty(runtime, "types")),
         JSIConverter<std::optional<bool>>::fromJSI(runtime, obj.getProperty(runtime, "multiple")),
-        JSIConverter<std::optional<NitroDocumentPickerOutput>>::fromJSI(runtime, obj.getProperty(runtime, "output")),
         JSIConverter<std::optional<double>>::fromJSI(runtime, obj.getProperty(runtime, "maxFileSize"))
       );
     }
@@ -67,7 +62,6 @@ namespace margelo::nitro {
       jsi::Object obj(runtime);
       obj.setProperty(runtime, "types", JSIConverter<std::vector<NitroDocumentType>>::toJSI(runtime, arg.types));
       obj.setProperty(runtime, "multiple", JSIConverter<std::optional<bool>>::toJSI(runtime, arg.multiple));
-      obj.setProperty(runtime, "output", JSIConverter<std::optional<NitroDocumentPickerOutput>>::toJSI(runtime, arg.output));
       obj.setProperty(runtime, "maxFileSize", JSIConverter<std::optional<double>>::toJSI(runtime, arg.maxFileSize));
       return obj;
     }
@@ -78,7 +72,6 @@ namespace margelo::nitro {
       jsi::Object obj = value.getObject(runtime);
       if (!JSIConverter<std::vector<NitroDocumentType>>::canConvert(runtime, obj.getProperty(runtime, "types"))) return false;
       if (!JSIConverter<std::optional<bool>>::canConvert(runtime, obj.getProperty(runtime, "multiple"))) return false;
-      if (!JSIConverter<std::optional<NitroDocumentPickerOutput>>::canConvert(runtime, obj.getProperty(runtime, "output"))) return false;
       if (!JSIConverter<std::optional<double>>::canConvert(runtime, obj.getProperty(runtime, "maxFileSize"))) return false;
       return true;
     }

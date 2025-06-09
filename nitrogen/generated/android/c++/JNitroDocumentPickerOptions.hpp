@@ -10,9 +10,7 @@
 #include <fbjni/fbjni.h>
 #include "NitroDocumentPickerOptions.hpp"
 
-#include "JNitroDocumentPickerOutput.hpp"
 #include "JNitroDocumentType.hpp"
-#include "NitroDocumentPickerOutput.hpp"
 #include "NitroDocumentType.hpp"
 #include <optional>
 #include <vector>
@@ -40,8 +38,6 @@ namespace margelo::nitro::nitrodocumentpicker {
       jni::local_ref<jni::JArrayClass<JNitroDocumentType>> types = this->getFieldValue(fieldTypes);
       static const auto fieldMultiple = clazz->getField<jni::JBoolean>("multiple");
       jni::local_ref<jni::JBoolean> multiple = this->getFieldValue(fieldMultiple);
-      static const auto fieldOutput = clazz->getField<JNitroDocumentPickerOutput>("output");
-      jni::local_ref<JNitroDocumentPickerOutput> output = this->getFieldValue(fieldOutput);
       static const auto fieldMaxFileSize = clazz->getField<jni::JDouble>("maxFileSize");
       jni::local_ref<jni::JDouble> maxFileSize = this->getFieldValue(fieldMaxFileSize);
       return NitroDocumentPickerOptions(
@@ -56,7 +52,6 @@ namespace margelo::nitro::nitrodocumentpicker {
           return __vector;
         }(),
         multiple != nullptr ? std::make_optional(static_cast<bool>(multiple->value())) : std::nullopt,
-        output != nullptr ? std::make_optional(output->toCpp()) : std::nullopt,
         maxFileSize != nullptr ? std::make_optional(maxFileSize->value()) : std::nullopt
       );
     }
@@ -78,7 +73,6 @@ namespace margelo::nitro::nitrodocumentpicker {
           return __array;
         }(),
         value.multiple.has_value() ? jni::JBoolean::valueOf(value.multiple.value()) : nullptr,
-        value.output.has_value() ? JNitroDocumentPickerOutput::fromCpp(value.output.value()) : nullptr,
         value.maxFileSize.has_value() ? jni::JDouble::valueOf(value.maxFileSize.value()) : nullptr
       );
     }

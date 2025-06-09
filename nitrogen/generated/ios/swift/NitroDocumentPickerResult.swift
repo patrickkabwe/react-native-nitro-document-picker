@@ -18,14 +18,8 @@ public extension NitroDocumentPickerResult {
   /**
    * Create a new instance of `NitroDocumentPickerResult`.
    */
-  init(path: String?, base64: String?, name: String) {
-    self.init({ () -> bridge.std__optional_std__string_ in
-      if let __unwrappedValue = path {
-        return bridge.create_std__optional_std__string_(std.string(__unwrappedValue))
-      } else {
-        return .init()
-      }
-    }(), { () -> bridge.std__optional_std__string_ in
+  init(path: String, base64: String?, name: String) {
+    self.init(std.string(path), { () -> bridge.std__optional_std__string_ in
       if let __unwrappedValue = base64 {
         return bridge.create_std__optional_std__string_(std.string(__unwrappedValue))
       } else {
@@ -34,26 +28,14 @@ public extension NitroDocumentPickerResult {
     }(), std.string(name))
   }
 
-  var path: String? {
+  var path: String {
     @inline(__always)
     get {
-      return { () -> String? in
-        if let __unwrapped = self.__path.value {
-          return String(__unwrapped)
-        } else {
-          return nil
-        }
-      }()
+      return String(self.__path)
     }
     @inline(__always)
     set {
-      self.__path = { () -> bridge.std__optional_std__string_ in
-        if let __unwrappedValue = newValue {
-          return bridge.create_std__optional_std__string_(std.string(__unwrappedValue))
-        } else {
-          return .init()
-        }
-      }()
+      self.__path = std.string(newValue)
     }
   }
   

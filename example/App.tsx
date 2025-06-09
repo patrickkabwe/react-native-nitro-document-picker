@@ -43,7 +43,6 @@ function App(): React.JSX.Element {
         onPress={() => {
           NitroDocumentPicker.pick({
             types: [DocumentType.CSV, DocumentType.DOCX, DocumentType.PDF],
-            output: 'base64',
             multiple: true,
           })
             .then(setResult)

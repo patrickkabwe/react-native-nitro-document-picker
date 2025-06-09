@@ -62,46 +62,30 @@ extension NitroDocumentPickerImpl: UIDocumentPickerDelegate {
         guard self.continuation != nil else {
             return
         }
-        
-        let output = options?.output ?? .path
-        
+                
         Task {
             do {
-                var results: [NitroDocumentPickerResult] = []
-                
-                switch output {
-                case .path:
-                    results = urls.map {
-                        NitroDocumentPickerResult(
-                            path: $0.absoluteString, base64: nil, name: $0.lastPathComponent
-                        )
-                    }
+                var results = try await withThrowingTaskGroup(of: NitroDocumentPickerResult.self) { group in
+                    var taskResults: [NitroDocumentPickerResult] = []
                     
-                case .base64:
-                    // Process files concurrently but with controlled concurrency to manage memory
-                    results = try await withThrowingTaskGroup(of: NitroDocumentPickerResult.self) { group in
-                        var taskResults: [NitroDocumentPickerResult] = []
-                        
-                        for url in urls {
-                            group.addTask { [weak self] in
-                                guard let self = self else { throw RuntimeError.error(withMessage: "Picker deallocated") }
+                    for url in urls {
+                        group.addTask { [weak self] in
+                            guard let self = self else { throw RuntimeError.error(withMessage: "Picker deallocated") }
 
-                                let base64String = try await self.toBase64Async(for: url)
-                                return NitroDocumentPickerResult(
-                                    path: nil, base64: base64String, name: url.lastPathComponent
-                                )
-                            }
+                            let base64String = try await self.toBase64Async(for: url)
+                            return NitroDocumentPickerResult(
+                                path: url.lastPathComponent,
+                                base64: url.absoluteString, 
+                                name: base64String
+                            )
                         }
-                        
-                        for try await result in group {
-                            taskResults.append(result)
-                        }
-                        
-                        return taskResults
                     }
                     
-                @unknown default:
-                    throw RuntimeError.error(withMessage: "Unknown output type")
+                    for try await result in group {
+                        taskResults.append(result)
+                    }
+                    
+                    return taskResults
                 }
                 
                 self.resumeWithResult(results)
