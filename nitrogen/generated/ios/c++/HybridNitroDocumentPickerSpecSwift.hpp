@@ -23,9 +23,9 @@ namespace margelo::nitro::nitrodocumentpicker { enum class NitroDocumentType; }
 #include <vector>
 #include "NitroDocumentPickerResult.hpp"
 #include <string>
-#include <optional>
 #include "NitroDocumentPickerOptions.hpp"
 #include "NitroDocumentType.hpp"
+#include <optional>
 
 #include "NitroDocumentPicker-Swift-Cxx-Umbrella.hpp"
 

@@ -20,11 +20,11 @@ namespace margelo::nitro::nitrodocumentpicker { enum class NitroDocumentType; }
 #include <NitroModules/JPromise.hpp>
 #include "JNitroDocumentPickerResult.hpp"
 #include <string>
-#include <optional>
 #include "NitroDocumentPickerOptions.hpp"
 #include "JNitroDocumentPickerOptions.hpp"
 #include "NitroDocumentType.hpp"
 #include "JNitroDocumentType.hpp"
+#include <optional>
 
 namespace margelo::nitro::nitrodocumentpicker {
 

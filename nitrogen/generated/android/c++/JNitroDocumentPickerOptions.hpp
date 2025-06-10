@@ -40,6 +40,8 @@ namespace margelo::nitro::nitrodocumentpicker {
       jni::local_ref<jni::JBoolean> multiple = this->getFieldValue(fieldMultiple);
       static const auto fieldMaxFileSize = clazz->getField<jni::JDouble>("maxFileSize");
       jni::local_ref<jni::JDouble> maxFileSize = this->getFieldValue(fieldMaxFileSize);
+      static const auto fieldLocalOnly = clazz->getField<jni::JBoolean>("localOnly");
+      jni::local_ref<jni::JBoolean> localOnly = this->getFieldValue(fieldLocalOnly);
       return NitroDocumentPickerOptions(
         [&]() {
           size_t __size = types->size();
@@ -52,7 +54,8 @@ namespace margelo::nitro::nitrodocumentpicker {
           return __vector;
         }(),
         multiple != nullptr ? std::make_optional(static_cast<bool>(multiple->value())) : std::nullopt,
-        maxFileSize != nullptr ? std::make_optional(maxFileSize->value()) : std::nullopt
+        maxFileSize != nullptr ? std::make_optional(maxFileSize->value()) : std::nullopt,
+        localOnly != nullptr ? std::make_optional(static_cast<bool>(localOnly->value())) : std::nullopt
       );
     }
 
@@ -73,7 +76,8 @@ namespace margelo::nitro::nitrodocumentpicker {
           return __array;
         }(),
         value.multiple.has_value() ? jni::JBoolean::valueOf(value.multiple.value()) : nullptr,
-        value.maxFileSize.has_value() ? jni::JDouble::valueOf(value.maxFileSize.value()) : nullptr
+        value.maxFileSize.has_value() ? jni::JDouble::valueOf(value.maxFileSize.value()) : nullptr,
+        value.localOnly.has_value() ? jni::JBoolean::valueOf(value.localOnly.value()) : nullptr
       );
     }
   };

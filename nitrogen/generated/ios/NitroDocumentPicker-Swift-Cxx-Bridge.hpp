@@ -39,15 +39,6 @@ namespace NitroDocumentPicker { class HybridNitroDocumentPickerSpec_cxx; }
  */
 namespace margelo::nitro::nitrodocumentpicker::bridge::swift {
 
-  // pragma MARK: std::optional<std::string>
-  /**
-   * Specialized version of `std::optional<std::string>`.
-   */
-  using std__optional_std__string_ = std::optional<std::string>;
-  inline std::optional<std::string> create_std__optional_std__string_(const std::string& value) {
-    return std::optional<std::string>(value);
-  }
-  
   // pragma MARK: std::vector<NitroDocumentPickerResult>
   /**
    * Specialized version of `std::vector<NitroDocumentPickerResult>`.

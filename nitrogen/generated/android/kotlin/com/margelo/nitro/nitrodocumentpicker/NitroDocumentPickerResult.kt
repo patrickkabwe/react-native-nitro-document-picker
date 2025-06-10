@@ -21,8 +21,10 @@ data class NitroDocumentPickerResult
   @Keep
   constructor(
     val path: String,
-    val base64: String?,
-    val name: String
+    val base64: String,
+    val name: String,
+    val mimeType: String,
+    val size: Double
   ) {
   /* main constructor */
 }
