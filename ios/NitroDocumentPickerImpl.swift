@@ -73,10 +73,13 @@ extension NitroDocumentPickerImpl: UIDocumentPickerDelegate {
                             guard let self = self else { throw RuntimeError.error(withMessage: "Picker deallocated") }
 
                             let base64String = try await self.toBase64Async(for: url)
+                            let fileSize = try FileManager.default.attributesOfItem(atPath: url.path)[FileAttributeKey.size] as? UInt64
                             return NitroDocumentPickerResult(
-                                path: url.lastPathComponent,
-                                base64: url.absoluteString, 
-                                name: base64String
+                                path: url.absoluteString,
+                                base64: base64String,
+                                name: url.lastPathComponent,
+                                mimeType: UTType(filenameExtension: url.pathExtension)?.preferredMIMEType ?? "",
+                                size: Double(fileSize ?? UInt64(0))
                             )
                         }
                     }

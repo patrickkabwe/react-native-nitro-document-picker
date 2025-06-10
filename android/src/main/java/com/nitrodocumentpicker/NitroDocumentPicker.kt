@@ -114,7 +114,7 @@ class NitroDocumentPicker(
         val resolver = context.contentResolver
         var name = "unknown"
         var size = 0
-        var mimeType: String? = null
+        var mimeType = ""
 
         resolver.query(uri, null, null, null, null)?.use { cursor ->
             val nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
@@ -145,7 +145,9 @@ class NitroDocumentPicker(
         return NitroDocumentPickerResult(
             path = uri.toString(),
             base64 = base64String,
-            name = name
+            name = name,
+            mimeType = mimeType,
+            size = size.toDouble()
         )
     }
 
