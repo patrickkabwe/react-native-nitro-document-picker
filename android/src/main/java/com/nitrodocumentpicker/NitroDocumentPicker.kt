@@ -53,7 +53,7 @@ class NitroDocumentPicker(
                     putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes.toTypedArray())
                 }
                 putExtra(Intent.EXTRA_ALLOW_MULTIPLE, options.multiple == true)
-                putExtra(Intent.EXTRA_LOCAL_ONLY, true)
+                putExtra(Intent.EXTRA_LOCAL_ONLY, options.localOnly == true)
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                     putExtra(DocumentsContract.EXTRA_INITIAL_URI, getInitialUri())
                 }
