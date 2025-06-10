@@ -6,6 +6,8 @@ import android.net.Uri
 import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.OpenableColumns
+import android.util.Base64
+import android.util.Base64OutputStream
 import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -20,11 +22,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
-import kotlinx.coroutines.withContext
+import java.io.ByteArrayOutputStream
 import java.util.concurrent.CancellationException
 import kotlin.coroutines.resume
-import kotlin.io.encoding.Base64
-import kotlin.io.encoding.ExperimentalEncodingApi
 
 class NitroDocumentPicker(
     private val context: ReactApplicationContext
@@ -66,7 +66,7 @@ class NitroDocumentPicker(
         return externalFilesDir?.toUri()
     }
 
-    private suspend fun handlePickerResult(resultCode: Int, data: Intent?) {
+    private fun handlePickerResult(resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK && data != null) {
             val results = mutableListOf<NitroDocumentPickerResult>()
 
@@ -108,33 +108,41 @@ class NitroDocumentPicker(
         launcher = null
     }
 
-    @OptIn(ExperimentalEncodingApi::class)
-    private suspend fun resolveUriToResult(uri: Uri): NitroDocumentPickerResult = withContext(Dispatchers.IO) {
+    private fun resolveUriToResult(uri: Uri): NitroDocumentPickerResult {
         val resolver = context.contentResolver
         var name = "unknown"
+        var size = 0
+        var mimeType: String? = null
 
         resolver.query(uri, null, null, null, null)?.use { cursor ->
             val nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+            val sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE)
             if (cursor.moveToFirst()) {
                 name = cursor.getString(nameIndex)
+                size = cursor.getInt(sizeIndex)
             }
         }
 
-        val base64Builder = StringBuilder()
-        val buffer = ByteArray(8 * 1024) // 8KB buffer
+        resolver.getType(uri)?.let {
+            mimeType = it
+        }
 
-        // TODO: currently takes time and sometimes crashes app on large files.
-        resolver.openInputStream(uri)?.use { input ->
-            var bytesRead: Int
-            while (input.read(buffer).also { bytesRead = it } != -1) {
-                val chunk = buffer.copyOf(bytesRead)
-                base64Builder.append(Base64.Default.encode(chunk))
+        val output = ByteArrayOutputStream()
+        Base64OutputStream(output, Base64.DEFAULT).use { base64Stream ->
+            resolver.openInputStream(uri)?.use { input ->
+                val buffer = ByteArray(50 * 1024 * 1024)
+                var bytesRead: Int
+                while (input.read(buffer).also { bytesRead = it } != -1) {
+                    base64Stream.write(buffer, 0, bytesRead)
+                }
             }
         }
 
-        NitroDocumentPickerResult(
+        val base64String = output.toString()
+
+        return NitroDocumentPickerResult(
             path = uri.toString(),
-            base64 = base64Builder.toString(),
+            base64 = base64String,
             name = name
         )
     }
