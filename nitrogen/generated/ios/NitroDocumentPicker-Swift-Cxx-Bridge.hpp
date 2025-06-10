@@ -10,8 +10,6 @@
 // Forward declarations of C++ defined types
 // Forward declaration of `HybridNitroDocumentPickerSpec` to properly resolve imports.
 namespace margelo::nitro::nitrodocumentpicker { class HybridNitroDocumentPickerSpec; }
-// Forward declaration of `NitroDocumentPickerOutput` to properly resolve imports.
-namespace margelo::nitro::nitrodocumentpicker { enum class NitroDocumentPickerOutput; }
 // Forward declaration of `NitroDocumentPickerResult` to properly resolve imports.
 namespace margelo::nitro::nitrodocumentpicker { struct NitroDocumentPickerResult; }
 // Forward declaration of `NitroDocumentType` to properly resolve imports.
@@ -23,7 +21,6 @@ namespace NitroDocumentPicker { class HybridNitroDocumentPickerSpec_cxx; }
 
 // Include C++ defined types
 #include "HybridNitroDocumentPickerSpec.hpp"
-#include "NitroDocumentPickerOutput.hpp"
 #include "NitroDocumentPickerResult.hpp"
 #include "NitroDocumentType.hpp"
 #include <NitroModules/Promise.hpp>
@@ -136,15 +133,6 @@ namespace margelo::nitro::nitrodocumentpicker::bridge::swift {
   using std__optional_bool_ = std::optional<bool>;
   inline std::optional<bool> create_std__optional_bool_(const bool& value) {
     return std::optional<bool>(value);
-  }
-  
-  // pragma MARK: std::optional<NitroDocumentPickerOutput>
-  /**
-   * Specialized version of `std::optional<NitroDocumentPickerOutput>`.
-   */
-  using std__optional_NitroDocumentPickerOutput_ = std::optional<NitroDocumentPickerOutput>;
-  inline std::optional<NitroDocumentPickerOutput> create_std__optional_NitroDocumentPickerOutput_(const NitroDocumentPickerOutput& value) {
-    return std::optional<NitroDocumentPickerOutput>(value);
   }
   
   // pragma MARK: std::optional<double>

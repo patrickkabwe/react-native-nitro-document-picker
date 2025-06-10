@@ -20,7 +20,7 @@ data class NitroDocumentPickerResult
   @DoNotStrip
   @Keep
   constructor(
-    val path: String?,
+    val path: String,
     val base64: String?,
     val name: String
   ) {

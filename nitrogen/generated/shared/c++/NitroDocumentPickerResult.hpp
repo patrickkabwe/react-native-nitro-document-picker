@@ -20,8 +20,8 @@
 
 
 
-#include <optional>
 #include <string>
+#include <optional>
 
 namespace margelo::nitro::nitrodocumentpicker {
 
@@ -30,13 +30,13 @@ namespace margelo::nitro::nitrodocumentpicker {
    */
   struct NitroDocumentPickerResult {
   public:
-    std::optional<std::string> path     SWIFT_PRIVATE;
+    std::string path     SWIFT_PRIVATE;
     std::optional<std::string> base64     SWIFT_PRIVATE;
     std::string name     SWIFT_PRIVATE;
 
   public:
     NitroDocumentPickerResult() = default;
-    explicit NitroDocumentPickerResult(std::optional<std::string> path, std::optional<std::string> base64, std::string name): path(path), base64(base64), name(name) {}
+    explicit NitroDocumentPickerResult(std::string path, std::optional<std::string> base64, std::string name): path(path), base64(base64), name(name) {}
   };
 
 } // namespace margelo::nitro::nitrodocumentpicker
@@ -51,14 +51,14 @@ namespace margelo::nitro {
     static inline NitroDocumentPickerResult fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
       jsi::Object obj = arg.asObject(runtime);
       return NitroDocumentPickerResult(
-        JSIConverter<std::optional<std::string>>::fromJSI(runtime, obj.getProperty(runtime, "path")),
+        JSIConverter<std::string>::fromJSI(runtime, obj.getProperty(runtime, "path")),
         JSIConverter<std::optional<std::string>>::fromJSI(runtime, obj.getProperty(runtime, "base64")),
         JSIConverter<std::string>::fromJSI(runtime, obj.getProperty(runtime, "name"))
       );
     }
     static inline jsi::Value toJSI(jsi::Runtime& runtime, const NitroDocumentPickerResult& arg) {
       jsi::Object obj(runtime);
-      obj.setProperty(runtime, "path", JSIConverter<std::optional<std::string>>::toJSI(runtime, arg.path));
+      obj.setProperty(runtime, "path", JSIConverter<std::string>::toJSI(runtime, arg.path));
       obj.setProperty(runtime, "base64", JSIConverter<std::optional<std::string>>::toJSI(runtime, arg.base64));
       obj.setProperty(runtime, "name", JSIConverter<std::string>::toJSI(runtime, arg.name));
       return obj;
@@ -68,7 +68,7 @@ namespace margelo::nitro {
         return false;
       }
       jsi::Object obj = value.getObject(runtime);
-      if (!JSIConverter<std::optional<std::string>>::canConvert(runtime, obj.getProperty(runtime, "path"))) return false;
+      if (!JSIConverter<std::string>::canConvert(runtime, obj.getProperty(runtime, "path"))) return false;
       if (!JSIConverter<std::optional<std::string>>::canConvert(runtime, obj.getProperty(runtime, "base64"))) return false;
       if (!JSIConverter<std::string>::canConvert(runtime, obj.getProperty(runtime, "name"))) return false;
       return true;

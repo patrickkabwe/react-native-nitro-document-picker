@@ -1,8 +1,6 @@
 
 export type NitroDocumentType = 'pdf' | 'docx' | 'xlsx' | 'pptx' | 'txt' | 'csv'
 
-export type NitroDocumentPickerOutput = 'path' | 'base64'
-
 export type NitroDocumentPickerOptions = {
     /**
      * The type of documents to pick.
@@ -14,11 +12,6 @@ export type NitroDocumentPickerOptions = {
      */
     multiple?: boolean
     /**
-     * The output type of the document.
-     * @default 'path'
-     */
-    output?: NitroDocumentPickerOutput
-    /**
      * The maximum file size in bytes.
      * @default 50 * 1024 * 1024 (50MB)
      */
@@ -26,7 +19,7 @@ export type NitroDocumentPickerOptions = {
 }
 
 export type NitroDocumentPickerResult = {
-    path?: string
+    path: string
     base64?: string
     name: string
 }

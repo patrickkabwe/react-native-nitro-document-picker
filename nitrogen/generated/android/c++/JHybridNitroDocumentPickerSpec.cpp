@@ -13,22 +13,18 @@ namespace margelo::nitro::nitrodocumentpicker { struct NitroDocumentPickerResult
 namespace margelo::nitro::nitrodocumentpicker { struct NitroDocumentPickerOptions; }
 // Forward declaration of `NitroDocumentType` to properly resolve imports.
 namespace margelo::nitro::nitrodocumentpicker { enum class NitroDocumentType; }
-// Forward declaration of `NitroDocumentPickerOutput` to properly resolve imports.
-namespace margelo::nitro::nitrodocumentpicker { enum class NitroDocumentPickerOutput; }
 
 #include <NitroModules/Promise.hpp>
 #include <vector>
 #include "NitroDocumentPickerResult.hpp"
 #include <NitroModules/JPromise.hpp>
 #include "JNitroDocumentPickerResult.hpp"
-#include <optional>
 #include <string>
+#include <optional>
 #include "NitroDocumentPickerOptions.hpp"
 #include "JNitroDocumentPickerOptions.hpp"
 #include "NitroDocumentType.hpp"
 #include "JNitroDocumentType.hpp"
-#include "NitroDocumentPickerOutput.hpp"
-#include "JNitroDocumentPickerOutput.hpp"
 
 namespace margelo::nitro::nitrodocumentpicker {
 

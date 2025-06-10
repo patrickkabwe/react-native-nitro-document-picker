@@ -33,6 +33,7 @@ function App(): React.JSX.Element {
           {result.length} files selected
         </Text>
       )}
+      <Text style={styles.text}>{result.map(r => r.name).join('\n')}</Text>
       <Text numberOfLines={10} style={styles.text}>
         {result.map(r => r.base64).join('\n')}
         {result.map(r => r.path).join('\n')}
@@ -43,7 +44,6 @@ function App(): React.JSX.Element {
         onPress={() => {
           NitroDocumentPicker.pick({
             types: [DocumentType.CSV, DocumentType.DOCX, DocumentType.PDF],
-            output: 'base64',
             multiple: true,
           })
             .then(setResult)
