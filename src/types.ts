@@ -18,6 +18,7 @@ export type NitroDocumentPickerOptions = {
     maxFileSize?: number
     /**
      * Local only mode.
+     * @platform android
      * @default false
      */
     localOnly?: boolean
