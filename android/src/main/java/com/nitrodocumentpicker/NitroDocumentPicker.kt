@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Environment
+import android.os.Handler
+import android.os.Looper
 import android.provider.DocumentsContract
 import android.provider.OpenableColumns
 import android.util.Base64
@@ -18,9 +20,6 @@ import com.margelo.nitro.nitrodocumentpicker.NitroDocumentPickerOptions
 import com.margelo.nitro.nitrodocumentpicker.NitroDocumentPickerResult
 import com.margelo.nitro.nitrodocumentpicker.NitroDocumentType
 import kotlinx.coroutines.CancellableContinuation
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.io.ByteArrayOutputStream
 import java.util.concurrent.CancellationException
@@ -32,6 +31,7 @@ class NitroDocumentPicker(
 
     private var pickerContinuation: CancellableContinuation<Array<NitroDocumentPickerResult>>? = null
     private var launcher: ActivityResultLauncher<Intent>? = null
+    private var maxFileSize: Double? = null
 
     init {
         context.addLifecycleEventListener(this)
@@ -40,6 +40,7 @@ class NitroDocumentPicker(
     suspend fun pick(options: NitroDocumentPickerOptions): Array<NitroDocumentPickerResult> =
         suspendCancellableCoroutine { continuation ->
             pickerContinuation = continuation
+            maxFileSize = options.maxFileSize
             continuation.invokeOnCancellation {
                 pickerContinuation = null
             }
@@ -56,6 +57,7 @@ class NitroDocumentPicker(
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                     putExtra(DocumentsContract.EXTRA_INITIAL_URI, getInitialUri())
                 }
+                putExtra("MAX_FILE_SIZE", options.maxFileSize)
             }
 
             launcher?.launch(intent)
@@ -66,17 +68,17 @@ class NitroDocumentPicker(
         return externalFilesDir?.toUri()
     }
 
-    private fun handlePickerResult(resultCode: Int, data: Intent?) {
+    private fun handlePickerResult(resultCode: Int, data: Intent?, maxFileSize: Double?) {
         if (resultCode == Activity.RESULT_OK && data != null) {
             val results = mutableListOf<NitroDocumentPickerResult>()
 
             data.clipData?.let { clipData ->
                 for (i in 0 until clipData.itemCount) {
                     val uri = clipData.getItemAt(i).uri
-                    results.add(resolveUriToResult(uri))
+                    results.add(resolveUriToResult(uri, maxFileSize))
                 }
             } ?: data.data?.let { uri ->
-                results.add(resolveUriToResult(uri))
+                results.add(resolveUriToResult(uri, maxFileSize))
             }
 
             if (pickerContinuation?.isActive == true) {
@@ -94,8 +96,8 @@ class NitroDocumentPicker(
             launcher = activity.activityResultRegistry.register(
                 ACTIVITY_RESULT_KEY, ActivityResultContracts.StartActivityForResult()
             ) { result ->
-                CoroutineScope(Dispatchers.Main).launch {
-                    handlePickerResult(result.resultCode, result.data)
+                Handler(Looper.getMainLooper()).post {
+                    handlePickerResult(result.resultCode, result.data, maxFileSize)
                 }
             }
         }
@@ -108,7 +110,7 @@ class NitroDocumentPicker(
         launcher = null
     }
 
-    private fun resolveUriToResult(uri: Uri): NitroDocumentPickerResult {
+    private fun resolveUriToResult(uri: Uri, maxFileSize: Double?): NitroDocumentPickerResult {
         val resolver = context.contentResolver
         var name = "unknown"
         var size = 0
@@ -130,7 +132,7 @@ class NitroDocumentPicker(
         val output = ByteArrayOutputStream()
         Base64OutputStream(output, Base64.DEFAULT).use { base64Stream ->
             resolver.openInputStream(uri)?.use { input ->
-                val buffer = ByteArray(50 * 1024 * 1024)
+                val buffer = ByteArray(maxFileSize?.toInt() ?: (50 * 1024 * 1024))
                 var bytesRead: Int
                 while (input.read(buffer).also { bytesRead = it } != -1) {
                     base64Stream.write(buffer, 0, bytesRead)
