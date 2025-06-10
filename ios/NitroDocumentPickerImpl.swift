@@ -97,7 +97,7 @@ extension NitroDocumentPickerImpl: UIDocumentPickerDelegate {
     }
 
     func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
-        resumeWithError(RuntimeError.error(withMessage: "Document picker was cancelled"))
+        resumeWithError(RuntimeError.error(withMessage: "Picker was cancelled"))
     }
 }
 
