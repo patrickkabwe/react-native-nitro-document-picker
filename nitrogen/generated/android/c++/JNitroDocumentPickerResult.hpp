@@ -10,7 +10,6 @@
 #include <fbjni/fbjni.h>
 #include "NitroDocumentPickerResult.hpp"
 
-#include <optional>
 #include <string>
 
 namespace margelo::nitro::nitrodocumentpicker {
@@ -38,10 +37,16 @@ namespace margelo::nitro::nitrodocumentpicker {
       jni::local_ref<jni::JString> base64 = this->getFieldValue(fieldBase64);
       static const auto fieldName = clazz->getField<jni::JString>("name");
       jni::local_ref<jni::JString> name = this->getFieldValue(fieldName);
+      static const auto fieldMimeType = clazz->getField<jni::JString>("mimeType");
+      jni::local_ref<jni::JString> mimeType = this->getFieldValue(fieldMimeType);
+      static const auto fieldSize = clazz->getField<double>("size");
+      double size = this->getFieldValue(fieldSize);
       return NitroDocumentPickerResult(
         path->toStdString(),
-        base64 != nullptr ? std::make_optional(base64->toStdString()) : std::nullopt,
-        name->toStdString()
+        base64->toStdString(),
+        name->toStdString(),
+        mimeType->toStdString(),
+        size
       );
     }
 
@@ -53,8 +58,10 @@ namespace margelo::nitro::nitrodocumentpicker {
     static jni::local_ref<JNitroDocumentPickerResult::javaobject> fromCpp(const NitroDocumentPickerResult& value) {
       return newInstance(
         jni::make_jstring(value.path),
-        value.base64.has_value() ? jni::make_jstring(value.base64.value()) : nullptr,
-        jni::make_jstring(value.name)
+        jni::make_jstring(value.base64),
+        jni::make_jstring(value.name),
+        jni::make_jstring(value.mimeType),
+        value.size
       );
     }
   };

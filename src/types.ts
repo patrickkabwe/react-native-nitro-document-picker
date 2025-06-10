@@ -15,11 +15,36 @@ export type NitroDocumentPickerOptions = {
      * The maximum file size in bytes.
      * @default 50 * 1024 * 1024 (50MB)
      */
-    maxFileSize?: number    
+    maxFileSize?: number
+    /**
+     * Local only mode.
+     * @default false
+     */
+    localOnly?: boolean
 }
 
 export type NitroDocumentPickerResult = {
+    /**
+     * The path of the document.
+     */
     path: string
-    base64?: string
+    /**
+     * The base64 encoded string of the document.
+     */
+    base64: string
+    /**
+     * The name of the document.
+     * @example 'document.pdf'
+     */
     name: string
+    /**
+     * The mime type of the document.
+     * @example 'application/pdf'
+     */
+    mimeType: string
+    /**
+     * The size of the document in bytes.
+     * @example 1000000
+     */
+    size: number
 }
