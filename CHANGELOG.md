@@ -1,3 +1,13 @@
+## [1.0.1](https://github.com/patrickkabwe/react-native-nitro-document-picker/compare/v1.0.0...v1.0.1) (2025-06-14)
+
+### 📚 Documentation
+
+* update README to enhance documentation with features, installation instructions, usage examples, and platform differences for the Nitro Document Picker ([0fd3141](https://github.com/patrickkabwe/react-native-nitro-document-picker/commit/0fd314117622f182770e139b041a52b5eafc0014))
+
+### 🛠️ Other changes
+
+* enhance App component with document picker functionality and UI improvements ([f0387a5](https://github.com/patrickkabwe/react-native-nitro-document-picker/commit/f0387a589678d52681a4e99b44f333217ce1b4fa))
+
 ## 1.0.0 (2025-06-11)
 
 ### ✨ Features
