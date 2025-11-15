@@ -28,6 +28,7 @@ namespace margelo::nitro::nitrodocumentpicker { enum class NitroDocumentType; }
 #include <memory>
 #include <optional>
 #include <string>
+#include <variant>
 #include <vector>
 
 // C++ helpers for Swift

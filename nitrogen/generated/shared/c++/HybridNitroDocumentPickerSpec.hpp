@@ -19,8 +19,9 @@ namespace margelo::nitro::nitrodocumentpicker { struct NitroDocumentPickerResult
 namespace margelo::nitro::nitrodocumentpicker { struct NitroDocumentPickerOptions; }
 
 #include <NitroModules/Promise.hpp>
-#include <vector>
+#include <variant>
 #include "NitroDocumentPickerResult.hpp"
+#include <vector>
 #include "NitroDocumentPickerOptions.hpp"
 
 namespace margelo::nitro::nitrodocumentpicker {
@@ -54,7 +55,7 @@ namespace margelo::nitro::nitrodocumentpicker {
 
     public:
       // Methods
-      virtual std::shared_ptr<Promise<std::vector<NitroDocumentPickerResult>>> pick(const NitroDocumentPickerOptions& options) = 0;
+      virtual std::shared_ptr<Promise<std::variant<NitroDocumentPickerResult, std::vector<NitroDocumentPickerResult>>>> pick(const NitroDocumentPickerOptions& options) = 0;
 
     protected:
       // Hybrid Setup

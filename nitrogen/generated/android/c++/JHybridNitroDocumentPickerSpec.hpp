@@ -51,7 +51,7 @@ namespace margelo::nitro::nitrodocumentpicker {
 
   public:
     // Methods
-    std::shared_ptr<Promise<std::vector<NitroDocumentPickerResult>>> pick(const NitroDocumentPickerOptions& options) override;
+    std::shared_ptr<Promise<std::variant<NitroDocumentPickerResult, std::vector<NitroDocumentPickerResult>>>> pick(const NitroDocumentPickerOptions& options) override;
 
   private:
     friend HybridBase;

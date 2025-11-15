@@ -1,6 +1,6 @@
 # react-native-nitro-document-picker
 
-A high-performance React Native document picker built with [Nitro Modules](https://github.com/mrousavy/nitro) for seamless native performance and modern architecture.
+A React Native document picker built with [Nitro Modules](https://github.com/mrousavy/nitro) for modern architecture.
 
 [![Version](https://img.shields.io/npm/v/react-native-nitro-document-picker.svg)](https://www.npmjs.com/package/react-native-nitro-document-picker)
 [![Downloads](https://img.shields.io/npm/dm/react-native-nitro-document-picker.svg)](https://www.npmjs.com/package/react-native-nitro-document-picker)
@@ -144,11 +144,6 @@ interface NitroDocumentPickerResult {
   path: string
 
   /**
-   * Base64 encoded string of the document content
-   */
-  base64: string
-
-  /**
    * The name of the document
    * @example 'document.pdf'
    */
@@ -207,37 +202,6 @@ const pickMultipleDocuments = async () => {
     result.forEach((file, index) => {
       console.log(`${index + 1}. ${file.name} (${file.size} bytes)`)
     })
-  } catch (error) {
-    console.error('Error:', error)
-  }
-}
-```
-
-### Working with Base64 Content
-
-```typescript
-const processDocumentContent = async () => {
-  try {
-    const result = await NitroDocumentPicker.pick({
-      types: ['txt', 'csv'],
-      multiple: false,
-    })
-
-    if (result.length > 0) {
-      const file = result[0]
-
-      // Decode base64 content
-      const content = atob(file.base64)
-      console.log('File content:', content)
-
-      // Or use it directly for upload
-      const formData = new FormData()
-      formData.append('file', {
-        uri: `data:${file.mimeType};base64,${file.base64}`,
-        type: file.mimeType,
-        name: file.name,
-      } as any)
-    }
   } catch (error) {
     console.error('Error:', error)
   }

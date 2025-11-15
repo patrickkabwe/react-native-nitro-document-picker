@@ -30,10 +30,6 @@ export type NitroDocumentPickerResult = {
      */
     path: string
     /**
-     * The base64 encoded string of the document.
-     */
-    base64: string
-    /**
      * The name of the document.
      * @example 'document.pdf'
      */

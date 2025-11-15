@@ -18,8 +18,8 @@ public extension NitroDocumentPickerResult {
   /**
    * Create a new instance of `NitroDocumentPickerResult`.
    */
-  init(path: String, base64: String, name: String, mimeType: String, size: Double) {
-    self.init(std.string(path), std.string(base64), std.string(name), std.string(mimeType), size)
+  init(path: String, name: String, mimeType: String, size: Double) {
+    self.init(std.string(path), std.string(name), std.string(mimeType), size)
   }
 
   var path: String {
@@ -30,17 +30,6 @@ public extension NitroDocumentPickerResult {
     @inline(__always)
     set {
       self.__path = std.string(newValue)
-    }
-  }
-  
-  var base64: String {
-    @inline(__always)
-    get {
-      return String(self.__base64)
-    }
-    @inline(__always)
-    set {
-      self.__base64 = std.string(newValue)
     }
   }
   

@@ -30,14 +30,13 @@ namespace margelo::nitro::nitrodocumentpicker {
   struct NitroDocumentPickerResult {
   public:
     std::string path     SWIFT_PRIVATE;
-    std::string base64     SWIFT_PRIVATE;
     std::string name     SWIFT_PRIVATE;
     std::string mimeType     SWIFT_PRIVATE;
     double size     SWIFT_PRIVATE;
 
   public:
     NitroDocumentPickerResult() = default;
-    explicit NitroDocumentPickerResult(std::string path, std::string base64, std::string name, std::string mimeType, double size): path(path), base64(base64), name(name), mimeType(mimeType), size(size) {}
+    explicit NitroDocumentPickerResult(std::string path, std::string name, std::string mimeType, double size): path(path), name(name), mimeType(mimeType), size(size) {}
   };
 
 } // namespace margelo::nitro::nitrodocumentpicker
@@ -53,7 +52,6 @@ namespace margelo::nitro {
       jsi::Object obj = arg.asObject(runtime);
       return NitroDocumentPickerResult(
         JSIConverter<std::string>::fromJSI(runtime, obj.getProperty(runtime, "path")),
-        JSIConverter<std::string>::fromJSI(runtime, obj.getProperty(runtime, "base64")),
         JSIConverter<std::string>::fromJSI(runtime, obj.getProperty(runtime, "name")),
         JSIConverter<std::string>::fromJSI(runtime, obj.getProperty(runtime, "mimeType")),
         JSIConverter<double>::fromJSI(runtime, obj.getProperty(runtime, "size"))
@@ -62,7 +60,6 @@ namespace margelo::nitro {
     static inline jsi::Value toJSI(jsi::Runtime& runtime, const NitroDocumentPickerResult& arg) {
       jsi::Object obj(runtime);
       obj.setProperty(runtime, "path", JSIConverter<std::string>::toJSI(runtime, arg.path));
-      obj.setProperty(runtime, "base64", JSIConverter<std::string>::toJSI(runtime, arg.base64));
       obj.setProperty(runtime, "name", JSIConverter<std::string>::toJSI(runtime, arg.name));
       obj.setProperty(runtime, "mimeType", JSIConverter<std::string>::toJSI(runtime, arg.mimeType));
       obj.setProperty(runtime, "size", JSIConverter<double>::toJSI(runtime, arg.size));
@@ -74,7 +71,6 @@ namespace margelo::nitro {
       }
       jsi::Object obj = value.getObject(runtime);
       if (!JSIConverter<std::string>::canConvert(runtime, obj.getProperty(runtime, "path"))) return false;
-      if (!JSIConverter<std::string>::canConvert(runtime, obj.getProperty(runtime, "base64"))) return false;
       if (!JSIConverter<std::string>::canConvert(runtime, obj.getProperty(runtime, "name"))) return false;
       if (!JSIConverter<std::string>::canConvert(runtime, obj.getProperty(runtime, "mimeType"))) return false;
       if (!JSIConverter<double>::canConvert(runtime, obj.getProperty(runtime, "size"))) return false;
