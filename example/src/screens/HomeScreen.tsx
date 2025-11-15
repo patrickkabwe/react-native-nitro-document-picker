@@ -159,7 +159,7 @@ function HomeScreen(): React.JSX.Element {
                   </View>
                 </View>
                 <Text style={styles.filePath} numberOfLines={2}>
-                  {file.path}
+                  {file.uri}
                 </Text>
               </View>
             ))}

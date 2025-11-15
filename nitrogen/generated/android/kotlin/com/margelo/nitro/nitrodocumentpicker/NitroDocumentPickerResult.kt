@@ -20,7 +20,7 @@ data class NitroDocumentPickerResult
   @DoNotStrip
   @Keep
   constructor(
-    val path: String,
+    val uri: String,
     val name: String,
     val mimeType: String,
     val size: Double

@@ -18,18 +18,18 @@ public extension NitroDocumentPickerResult {
   /**
    * Create a new instance of `NitroDocumentPickerResult`.
    */
-  init(path: String, name: String, mimeType: String, size: Double) {
-    self.init(std.string(path), std.string(name), std.string(mimeType), size)
+  init(uri: String, name: String, mimeType: String, size: Double) {
+    self.init(std.string(uri), std.string(name), std.string(mimeType), size)
   }
 
-  var path: String {
+  var uri: String {
     @inline(__always)
     get {
-      return String(self.__path)
+      return String(self.__uri)
     }
     @inline(__always)
     set {
-      self.__path = std.string(newValue)
+      self.__uri = std.string(newValue)
     }
   }
   

@@ -26,9 +26,9 @@ export type NitroDocumentPickerOptions = {
 
 export type NitroDocumentPickerResult = {
     /**
-     * The path of the document.
+     * The URI of the document.
      */
-    path: string
+    uri: string
     /**
      * The name of the document.
      * @example 'document.pdf'

@@ -74,7 +74,7 @@ extension NitroDocumentPickerImpl: UIDocumentPickerDelegate {
 
                             let fileSize = try FileManager.default.attributesOfItem(atPath: url.path)[FileAttributeKey.size] as? UInt64
                             return NitroDocumentPickerResult(
-                                path: url.absoluteString,
+                                uri: url.absoluteString,
                                 name: url.lastPathComponent,
                                 mimeType: UTType(filenameExtension: url.pathExtension)?.preferredMIMEType ?? "",
                                 size: Double(fileSize ?? UInt64(0))

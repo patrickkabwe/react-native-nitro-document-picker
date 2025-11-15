@@ -31,8 +31,8 @@ namespace margelo::nitro::nitrodocumentpicker {
     [[nodiscard]]
     NitroDocumentPickerResult toCpp() const {
       static const auto clazz = javaClassStatic();
-      static const auto fieldPath = clazz->getField<jni::JString>("path");
-      jni::local_ref<jni::JString> path = this->getFieldValue(fieldPath);
+      static const auto fieldUri = clazz->getField<jni::JString>("uri");
+      jni::local_ref<jni::JString> uri = this->getFieldValue(fieldUri);
       static const auto fieldName = clazz->getField<jni::JString>("name");
       jni::local_ref<jni::JString> name = this->getFieldValue(fieldName);
       static const auto fieldMimeType = clazz->getField<jni::JString>("mimeType");
@@ -40,7 +40,7 @@ namespace margelo::nitro::nitrodocumentpicker {
       static const auto fieldSize = clazz->getField<double>("size");
       double size = this->getFieldValue(fieldSize);
       return NitroDocumentPickerResult(
-        path->toStdString(),
+        uri->toStdString(),
         name->toStdString(),
         mimeType->toStdString(),
         size
@@ -54,7 +54,7 @@ namespace margelo::nitro::nitrodocumentpicker {
     [[maybe_unused]]
     static jni::local_ref<JNitroDocumentPickerResult::javaobject> fromCpp(const NitroDocumentPickerResult& value) {
       return newInstance(
-        jni::make_jstring(value.path),
+        jni::make_jstring(value.uri),
         jni::make_jstring(value.name),
         jni::make_jstring(value.mimeType),
         value.size

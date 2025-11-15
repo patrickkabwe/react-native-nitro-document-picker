@@ -142,7 +142,7 @@ class NitroDocumentPicker(
         }
 
         return NitroDocumentPickerResult(
-            path = uri.toString(),
+            uri = uri.toString(),
             name = fileName,
             mimeType = contentResolver.getType(uri) ?: "",
             size = sizeFromCursor.toDouble()

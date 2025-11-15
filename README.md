@@ -139,9 +139,9 @@ type NitroDocumentType =
 ```typescript
 interface NitroDocumentPickerResult {
   /**
-   * The file path/URI of the document
+   * The file URI of the document
    */
-  path: string
+  uri: string
 
   /**
    * The name of the document
