@@ -42,7 +42,7 @@ abstract class HybridNitroDocumentPickerSpec: HybridObject() {
   // Methods
   @DoNotStrip
   @Keep
-  abstract fun pick(options: NitroDocumentPickerOptions): Promise<Array<NitroDocumentPickerResult>>
+  abstract fun pick(options: NitroDocumentPickerOptions): Promise<Variant_NitroDocumentPickerResult_Array_NitroDocumentPickerResult_>
 
   private external fun initHybrid(): HybridData
 

@@ -13,10 +13,10 @@
 
 namespace margelo::nitro::nitrodocumentpicker::bridge::swift {
 
-  // pragma MARK: std::function<void(const std::vector<NitroDocumentPickerResult>& /* result */)>
-  Func_void_std__vector_NitroDocumentPickerResult_ create_Func_void_std__vector_NitroDocumentPickerResult_(void* _Nonnull swiftClosureWrapper) {
-    auto swiftClosure = NitroDocumentPicker::Func_void_std__vector_NitroDocumentPickerResult_::fromUnsafe(swiftClosureWrapper);
-    return [swiftClosure = std::move(swiftClosure)](const std::vector<NitroDocumentPickerResult>& result) mutable -> void {
+  // pragma MARK: std::function<void(const std::variant<NitroDocumentPickerResult, std::vector<NitroDocumentPickerResult>>& /* result */)>
+  Func_void_std__variant_NitroDocumentPickerResult__std__vector_NitroDocumentPickerResult__ create_Func_void_std__variant_NitroDocumentPickerResult__std__vector_NitroDocumentPickerResult__(void* _Nonnull swiftClosureWrapper) {
+    auto swiftClosure = NitroDocumentPicker::Func_void_std__variant_NitroDocumentPickerResult__std__vector_NitroDocumentPickerResult__::fromUnsafe(swiftClosureWrapper);
+    return [swiftClosure = std::move(swiftClosure)](const std::variant<NitroDocumentPickerResult, std::vector<NitroDocumentPickerResult>>& result) mutable -> void {
       swiftClosure.call(result);
     };
   }

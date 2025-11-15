@@ -101,27 +101,34 @@ public class HybridNitroDocumentPickerSpec_cxx {
 
   // Methods
   @inline(__always)
-  public final func pick(options: NitroDocumentPickerOptions) -> bridge.Result_std__shared_ptr_Promise_std__vector_NitroDocumentPickerResult____ {
+  public final func pick(options: NitroDocumentPickerOptions) -> bridge.Result_std__shared_ptr_Promise_std__variant_NitroDocumentPickerResult__std__vector_NitroDocumentPickerResult_____ {
     do {
       let __result = try self.__implementation.pick(options: options)
-      let __resultCpp = { () -> bridge.std__shared_ptr_Promise_std__vector_NitroDocumentPickerResult___ in
-        let __promise = bridge.create_std__shared_ptr_Promise_std__vector_NitroDocumentPickerResult___()
-        let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_std__vector_NitroDocumentPickerResult___(__promise)
+      let __resultCpp = { () -> bridge.std__shared_ptr_Promise_std__variant_NitroDocumentPickerResult__std__vector_NitroDocumentPickerResult____ in
+        let __promise = bridge.create_std__shared_ptr_Promise_std__variant_NitroDocumentPickerResult__std__vector_NitroDocumentPickerResult____()
+        let __promiseHolder = bridge.wrap_std__shared_ptr_Promise_std__variant_NitroDocumentPickerResult__std__vector_NitroDocumentPickerResult____(__promise)
         __result
-          .then({ __result in __promiseHolder.resolve({ () -> bridge.std__vector_NitroDocumentPickerResult_ in
-              var __vector = bridge.create_std__vector_NitroDocumentPickerResult_(__result.count)
-              for __item in __result {
-                __vector.push_back(__item)
+          .then({ __result in __promiseHolder.resolve({ () -> bridge.std__variant_NitroDocumentPickerResult__std__vector_NitroDocumentPickerResult__ in
+              switch __result {
+                case .first(let __value):
+                  return bridge.create_std__variant_NitroDocumentPickerResult__std__vector_NitroDocumentPickerResult__(__value)
+                case .second(let __value):
+                  return bridge.create_std__variant_NitroDocumentPickerResult__std__vector_NitroDocumentPickerResult__({ () -> bridge.std__vector_NitroDocumentPickerResult_ in
+                    var __vector = bridge.create_std__vector_NitroDocumentPickerResult_(__value.count)
+                    for __item in __value {
+                      __vector.push_back(__item)
+                    }
+                    return __vector
+                  }())
               }
-              return __vector
-            }()) })
+            }().variant) })
           .catch({ __error in __promiseHolder.reject(__error.toCpp()) })
         return __promise
       }()
-      return bridge.create_Result_std__shared_ptr_Promise_std__vector_NitroDocumentPickerResult____(__resultCpp)
+      return bridge.create_Result_std__shared_ptr_Promise_std__variant_NitroDocumentPickerResult__std__vector_NitroDocumentPickerResult_____(__resultCpp)
     } catch (let __error) {
       let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_std__shared_ptr_Promise_std__vector_NitroDocumentPickerResult____(__exceptionPtr)
+      return bridge.create_Result_std__shared_ptr_Promise_std__variant_NitroDocumentPickerResult__std__vector_NitroDocumentPickerResult_____(__exceptionPtr)
     }
   }
 }

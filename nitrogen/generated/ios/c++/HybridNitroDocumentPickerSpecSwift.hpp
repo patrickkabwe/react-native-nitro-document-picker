@@ -20,8 +20,9 @@ namespace margelo::nitro::nitrodocumentpicker { struct NitroDocumentPickerOption
 namespace margelo::nitro::nitrodocumentpicker { enum class NitroDocumentType; }
 
 #include <NitroModules/Promise.hpp>
-#include <vector>
+#include <variant>
 #include "NitroDocumentPickerResult.hpp"
+#include <vector>
 #include <string>
 #include "NitroDocumentPickerOptions.hpp"
 #include "NitroDocumentType.hpp"
@@ -66,7 +67,7 @@ namespace margelo::nitro::nitrodocumentpicker {
 
   public:
     // Methods
-    inline std::shared_ptr<Promise<std::vector<NitroDocumentPickerResult>>> pick(const NitroDocumentPickerOptions& options) override {
+    inline std::shared_ptr<Promise<std::variant<NitroDocumentPickerResult, std::vector<NitroDocumentPickerResult>>>> pick(const NitroDocumentPickerOptions& options) override {
       auto __result = _swiftPart.pick(options);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());

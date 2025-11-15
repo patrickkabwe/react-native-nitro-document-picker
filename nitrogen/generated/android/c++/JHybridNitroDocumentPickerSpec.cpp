@@ -15,9 +15,11 @@ namespace margelo::nitro::nitrodocumentpicker { struct NitroDocumentPickerOption
 namespace margelo::nitro::nitrodocumentpicker { enum class NitroDocumentType; }
 
 #include <NitroModules/Promise.hpp>
-#include <vector>
+#include <variant>
 #include "NitroDocumentPickerResult.hpp"
+#include <vector>
 #include <NitroModules/JPromise.hpp>
+#include "JVariant_NitroDocumentPickerResult_Array_NitroDocumentPickerResult_.hpp"
 #include "JNitroDocumentPickerResult.hpp"
 #include <string>
 #include "NitroDocumentPickerOptions.hpp"
@@ -47,23 +49,14 @@ namespace margelo::nitro::nitrodocumentpicker {
   
 
   // Methods
-  std::shared_ptr<Promise<std::vector<NitroDocumentPickerResult>>> JHybridNitroDocumentPickerSpec::pick(const NitroDocumentPickerOptions& options) {
+  std::shared_ptr<Promise<std::variant<NitroDocumentPickerResult, std::vector<NitroDocumentPickerResult>>>> JHybridNitroDocumentPickerSpec::pick(const NitroDocumentPickerOptions& options) {
     static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<JNitroDocumentPickerOptions> /* options */)>("pick");
     auto __result = method(_javaPart, JNitroDocumentPickerOptions::fromCpp(options));
     return [&]() {
-      auto __promise = Promise<std::vector<NitroDocumentPickerResult>>::create();
+      auto __promise = Promise<std::variant<NitroDocumentPickerResult, std::vector<NitroDocumentPickerResult>>>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
-        auto __result = jni::static_ref_cast<jni::JArrayClass<JNitroDocumentPickerResult>>(__boxedResult);
-        __promise->resolve([&]() {
-          size_t __size = __result->size();
-          std::vector<NitroDocumentPickerResult> __vector;
-          __vector.reserve(__size);
-          for (size_t __i = 0; __i < __size; __i++) {
-            auto __element = __result->getElement(__i);
-            __vector.push_back(__element->toCpp());
-          }
-          return __vector;
-        }());
+        auto __result = jni::static_ref_cast<JVariant_NitroDocumentPickerResult_Array_NitroDocumentPickerResult_>(__boxedResult);
+        __promise->resolve(__result->toCpp());
       });
       __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
         jni::JniException __jniError(__throwable);
