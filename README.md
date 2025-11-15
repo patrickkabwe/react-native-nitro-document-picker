@@ -10,8 +10,9 @@ A React Native document picker built with [Nitro Modules](https://github.com/mro
 
 - 🚀 **High Performance**: Built with Nitro Modules for native-level performance
 - 📱 **Cross Platform**: Works on both iOS and Android
-- 📄 **Multiple File Types**: Support for PDF, DOCX, TXT, and CSV files
+- 📄 **Multiple File Types**: Support for PDF, DOCX, TXT, CSV, images, videos, and audio files
 - 🔢 **Multiple Selection**: Pick single or multiple documents at once
+- ☁️ **Cloud Storage Support**: Access files from iCloud Drive, Google Drive, Dropbox, OneDrive, and other cloud providers
 - 📱 **Modern Architecture**: Built on React Native's new architecture but still supports the old architecture
 
 ## 📋 Requirements

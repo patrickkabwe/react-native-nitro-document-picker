@@ -172,6 +172,7 @@ function HomeScreen(): React.JSX.Element {
           <Text style={styles.infoText}>• Parallel file processing</Text>
           <Text style={styles.infoText}>• File size validation</Text>
           <Text style={styles.infoText}>• Multiple file support</Text>
+          <Text style={styles.infoText}>• Cloud storage support (iCloud Drive, Google Drive, Dropbox, OneDrive, etc.)</Text>
         </View>
       </ScrollView>
     </SafeAreaView>

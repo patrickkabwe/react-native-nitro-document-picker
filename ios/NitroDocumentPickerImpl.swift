@@ -72,12 +72,35 @@ extension NitroDocumentPickerImpl: UIDocumentPickerDelegate {
                         group.addTask { [weak self] in
                             guard self != nil else { throw RuntimeError.error(withMessage: "Picker deallocated") }
 
-                            let fileSize = try FileManager.default.attributesOfItem(atPath: url.path)[FileAttributeKey.size] as? UInt64
+                            let isAccessing = url.startAccessingSecurityScopedResource()
+                            defer {
+                                if isAccessing {
+                                    url.stopAccessingSecurityScopedResource()
+                                }
+                            }
+                            
+                            var fileSize: UInt64 = 0
+                            
+                            if url.isFileURL {
+                                if let attributes = try? FileManager.default.attributesOfItem(atPath: url.path),
+                                   let size = attributes[FileAttributeKey.size] as? UInt64 {
+                                    fileSize = size
+                                }
+                            } else {
+                                // For cloud storage URLs, try to get size from resource values
+                                if let resourceValues = try? url.resourceValues(forKeys: [.fileSizeKey]),
+                                   let size = resourceValues.fileSize {
+                                    fileSize = UInt64(size)
+                                }
+                            }
+                            
+                            let mimeType = UTType(filenameExtension: url.pathExtension)?.preferredMIMEType ?? ""
+                            
                             return NitroDocumentPickerResult(
                                 uri: url.absoluteString,
                                 name: url.lastPathComponent,
-                                mimeType: UTType(filenameExtension: url.pathExtension)?.preferredMIMEType ?? "",
-                                size: Double(fileSize ?? UInt64(0))
+                                mimeType: mimeType,
+                                size: Double(fileSize)
                             )
                         }
                     }
