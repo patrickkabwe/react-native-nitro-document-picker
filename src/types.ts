@@ -1,7 +1,7 @@
 
 export type NitroDocumentType =
     // All file types
-    | '*'
+    | 'all'
     // Existing document types
     | 'pdf'
     | 'docx'
@@ -62,7 +62,7 @@ export type NitroDocumentType =
 export type NitroDocumentPickerOptions = {
     /**
      * The type of documents to pick.
-     * Use '*' to allow all file types.
+     * Use 'all' to allow all file types.
      */
     types: NitroDocumentType[]
     /**

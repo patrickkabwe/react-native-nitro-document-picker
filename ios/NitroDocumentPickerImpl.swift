@@ -21,12 +21,12 @@ class NitroDocumentPickerImpl: NSObject {
             self.continuation = continuation
             
             guard !options.types.isEmpty else {
-                return self.resumeWithError(RuntimeError.error(withMessage: "No document types specified. Provide types array with at least one type or use '*' for all types."))
+                return self.resumeWithError(RuntimeError.error(withMessage: "No document types specified. Provide types array with at least one type or use 'all' for all types."))
             }
             
-            // Check if '*' is in the types array
+            // Check if 'all' is in the types array
             let docTypes: [UTType]
-            if options.types.contains(where: { $0.stringValue == "*" }) {
+            if options.types.contains(where: { $0.stringValue == "all" }) {
                 docTypes = [UTType.item]
             } else {
                 guard let resolvedTypes = self.getDocTypes(for: options.types) else {
@@ -145,7 +145,7 @@ extension NitroDocumentPickerImpl {
         let utTypes = docTypes.flatMap { docType -> [UTType] in
             switch docType.stringValue {
             // All file types
-            case "*":
+            case "all":
                 return [UTType.item]
             // Image types
             case "jpg", "jpeg":

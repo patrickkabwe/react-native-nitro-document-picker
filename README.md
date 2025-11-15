@@ -95,7 +95,7 @@ Opens the document picker with the specified options.
 interface NitroDocumentPickerOptions {
   /**
    * Array of document types to allow for selection.
-   * Use '*' to allow all file types.
+   * Use 'all' to allow all file types.
    */
   types: NitroDocumentType[]
 
@@ -120,7 +120,7 @@ interface NitroDocumentPickerOptions {
 Supported document types:
 
 **All File Types:**
-- `*` - Allow picking any file type
+- `all` - Allow picking any file type
 
 **Document Types:**
 - `pdf` - PDF documents
@@ -279,7 +279,7 @@ const pickLocalDocuments = async () => {
 const pickAnyFile = async () => {
   try {
     const result = await NitroDocumentPicker.pick({
-      types: ['*'], // Use '*' to allow picking any file type
+      types: ['all'], // Use 'all' to allow picking any file type
       multiple: true,
     })
 

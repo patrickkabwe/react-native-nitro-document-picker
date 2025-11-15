@@ -31,7 +31,7 @@ namespace margelo::nitro::nitrodocumentpicker {
   enum class NitroDocumentType {
     SWIFT      SWIFT_NAME(swift) = 0,
     KOTLIN      SWIFT_NAME(kotlin) = 1,
-    _      SWIFT_NAME() = 2,
+    ALL      SWIFT_NAME(all) = 2,
     PDF      SWIFT_NAME(pdf) = 3,
     DOCX      SWIFT_NAME(docx) = 4,
     XLSX      SWIFT_NAME(xlsx) = 5,
@@ -90,7 +90,7 @@ namespace margelo::nitro {
       switch (hashString(unionValue.c_str(), unionValue.size())) {
         case hashString("swift"): return NitroDocumentType::SWIFT;
         case hashString("kotlin"): return NitroDocumentType::KOTLIN;
-        case hashString("*"): return NitroDocumentType::_;
+        case hashString("all"): return NitroDocumentType::ALL;
         case hashString("pdf"): return NitroDocumentType::PDF;
         case hashString("docx"): return NitroDocumentType::DOCX;
         case hashString("xlsx"): return NitroDocumentType::XLSX;
@@ -141,7 +141,7 @@ namespace margelo::nitro {
       switch (arg) {
         case NitroDocumentType::SWIFT: return JSIConverter<std::string>::toJSI(runtime, "swift");
         case NitroDocumentType::KOTLIN: return JSIConverter<std::string>::toJSI(runtime, "kotlin");
-        case NitroDocumentType::_: return JSIConverter<std::string>::toJSI(runtime, "*");
+        case NitroDocumentType::ALL: return JSIConverter<std::string>::toJSI(runtime, "all");
         case NitroDocumentType::PDF: return JSIConverter<std::string>::toJSI(runtime, "pdf");
         case NitroDocumentType::DOCX: return JSIConverter<std::string>::toJSI(runtime, "docx");
         case NitroDocumentType::XLSX: return JSIConverter<std::string>::toJSI(runtime, "xlsx");
@@ -197,7 +197,7 @@ namespace margelo::nitro {
       switch (hashString(unionValue.c_str(), unionValue.size())) {
         case hashString("swift"):
         case hashString("kotlin"):
-        case hashString("*"):
+        case hashString("all"):
         case hashString("pdf"):
         case hashString("docx"):
         case hashString("xlsx"):

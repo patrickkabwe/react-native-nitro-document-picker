@@ -43,7 +43,7 @@ namespace margelo::nitro::nitrodocumentpicker {
       static const auto clazz = javaClassStatic();
       static const auto fieldSWIFT = clazz->getStaticField<JNitroDocumentType>("SWIFT");
       static const auto fieldKOTLIN = clazz->getStaticField<JNitroDocumentType>("KOTLIN");
-      static const auto field_ = clazz->getStaticField<JNitroDocumentType>("_");
+      static const auto fieldALL = clazz->getStaticField<JNitroDocumentType>("ALL");
       static const auto fieldPDF = clazz->getStaticField<JNitroDocumentType>("PDF");
       static const auto fieldDOCX = clazz->getStaticField<JNitroDocumentType>("DOCX");
       static const auto fieldXLSX = clazz->getStaticField<JNitroDocumentType>("XLSX");
@@ -92,8 +92,8 @@ namespace margelo::nitro::nitrodocumentpicker {
           return clazz->getStaticFieldValue(fieldSWIFT);
         case NitroDocumentType::KOTLIN:
           return clazz->getStaticFieldValue(fieldKOTLIN);
-        case NitroDocumentType::_:
-          return clazz->getStaticFieldValue(field_);
+        case NitroDocumentType::ALL:
+          return clazz->getStaticFieldValue(fieldALL);
         case NitroDocumentType::PDF:
           return clazz->getStaticFieldValue(fieldPDF);
         case NitroDocumentType::DOCX:

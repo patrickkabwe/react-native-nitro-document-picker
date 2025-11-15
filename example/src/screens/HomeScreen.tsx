@@ -67,7 +67,7 @@ function HomeScreen(): React.JSX.Element {
     try {
       setIsLoading(true);
       const pickedFiles = await NitroDocumentPicker.pick({
-        types: ['*'],
+        types: ['all'],
         multiple: true,
       });
       setResult(pickedFiles);
@@ -176,7 +176,7 @@ function HomeScreen(): React.JSX.Element {
           <Text style={styles.infoText}>• Multiple file support</Text>
           <Text style={styles.infoText}>• Support for 70+ file types</Text>
           <Text style={styles.infoText}>• Specific media type selection</Text>
-          <Text style={styles.infoText}>• Pick any file type with '*' type</Text>
+          <Text style={styles.infoText}>• Pick any file type with 'all' type</Text>
           <Text style={styles.infoText}>• Cloud storage support (iCloud Drive, Google Drive, Dropbox, OneDrive, etc.)</Text>
         </View>
       </ScrollView>

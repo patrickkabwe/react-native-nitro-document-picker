@@ -47,12 +47,12 @@ class NitroDocumentPicker(
             // Handle types array
             val types = options.types
             if (types.isEmpty()) {
-                continuation.cancel(CancellationException("No document types specified. Provide types array with at least one type or use '*' for all types."))
+                continuation.cancel(CancellationException("No document types specified. Provide types array with at least one type or use 'all' for all types."))
                 return@suspendCancellableCoroutine
             }
             
-            // Check if '*' is in the types array
-            val mimeTypes = if (types.any { it.toString() == "*" }) {
+            // Check if 'all' is in the types array
+            val mimeTypes = if (types.any { it.stringValue == "all" }) {
                 listOf("*/*")
             } else {
                 getMimeTypes(types)

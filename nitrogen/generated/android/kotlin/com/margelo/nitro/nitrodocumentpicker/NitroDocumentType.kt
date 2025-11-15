@@ -18,7 +18,7 @@ import com.facebook.proguard.annotations.DoNotStrip
 enum class NitroDocumentType {
   SWIFT,
   KOTLIN,
-  _,
+  ALL,
   PDF,
   DOCX,
   XLSX,

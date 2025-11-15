@@ -21,8 +21,8 @@ public extension NitroDocumentType {
         self = .swift
       case "kotlin":
         self = .kotlin
-      case "*":
-        self = .
+      case "all":
+        self = .all
       case "pdf":
         self = .pdf
       case "docx":
@@ -121,8 +121,8 @@ public extension NitroDocumentType {
         return "swift"
       case .kotlin:
         return "kotlin"
-      case .:
-        return "*"
+      case .all:
+        return "all"
       case .pdf:
         return "pdf"
       case .docx:
