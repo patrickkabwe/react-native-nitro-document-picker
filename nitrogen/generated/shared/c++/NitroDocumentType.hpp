@@ -35,6 +35,9 @@ namespace margelo::nitro::nitrodocumentpicker {
     PPTX      SWIFT_NAME(pptx) = 3,
     TXT      SWIFT_NAME(txt) = 4,
     CSV      SWIFT_NAME(csv) = 5,
+    IMAGE      SWIFT_NAME(image) = 6,
+    VIDEO      SWIFT_NAME(video) = 7,
+    AUDIO      SWIFT_NAME(audio) = 8,
   } CLOSED_ENUM;
 
 } // namespace margelo::nitro::nitrodocumentpicker
@@ -55,6 +58,9 @@ namespace margelo::nitro {
         case hashString("pptx"): return NitroDocumentType::PPTX;
         case hashString("txt"): return NitroDocumentType::TXT;
         case hashString("csv"): return NitroDocumentType::CSV;
+        case hashString("image"): return NitroDocumentType::IMAGE;
+        case hashString("video"): return NitroDocumentType::VIDEO;
+        case hashString("audio"): return NitroDocumentType::AUDIO;
         default: [[unlikely]]
           throw std::invalid_argument("Cannot convert \"" + unionValue + "\" to enum NitroDocumentType - invalid value!");
       }
@@ -67,6 +73,9 @@ namespace margelo::nitro {
         case NitroDocumentType::PPTX: return JSIConverter<std::string>::toJSI(runtime, "pptx");
         case NitroDocumentType::TXT: return JSIConverter<std::string>::toJSI(runtime, "txt");
         case NitroDocumentType::CSV: return JSIConverter<std::string>::toJSI(runtime, "csv");
+        case NitroDocumentType::IMAGE: return JSIConverter<std::string>::toJSI(runtime, "image");
+        case NitroDocumentType::VIDEO: return JSIConverter<std::string>::toJSI(runtime, "video");
+        case NitroDocumentType::AUDIO: return JSIConverter<std::string>::toJSI(runtime, "audio");
         default: [[unlikely]]
           throw std::invalid_argument("Cannot convert NitroDocumentType to JS - invalid value: "
                                     + std::to_string(static_cast<int>(arg)) + "!");
@@ -84,6 +93,9 @@ namespace margelo::nitro {
         case hashString("pptx"):
         case hashString("txt"):
         case hashString("csv"):
+        case hashString("image"):
+        case hashString("video"):
+        case hashString("audio"):
           return true;
         default:
           return false;
