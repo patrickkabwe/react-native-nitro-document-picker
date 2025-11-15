@@ -158,6 +158,9 @@ class NitroDocumentPicker(
             NitroDocumentType.PPTX -> "application/vnd.openxmlformats-officedocument.presentationml.presentation"
             NitroDocumentType.TXT -> "text/plain"
             NitroDocumentType.CSV -> "text/comma-separated-values"
+            NitroDocumentType.IMAGE -> "image/*"
+            NitroDocumentType.VIDEO -> "video/*"
+            NitroDocumentType.AUDIO -> "audio/*"
         }
     }
 

@@ -1,5 +1,5 @@
 
-export type NitroDocumentType = 'pdf' | 'docx' | 'xlsx' | 'pptx' | 'txt' | 'csv'
+export type NitroDocumentType = 'pdf' | 'docx' | 'xlsx' | 'pptx' | 'txt' | 'csv' | 'image' | 'video' | 'audio'
 
 export type NitroDocumentPickerOptions = {
     /**
