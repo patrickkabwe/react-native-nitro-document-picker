@@ -52,7 +52,7 @@ class NitroDocumentPicker(
             }
             
             // Check if 'all' is in the types array
-            val mimeTypes = if (types.any { it.stringValue == "all" }) {
+            val mimeTypes = if (types.any { it.name.lowercase() == "all" }) {
                 listOf("*/*")
             } else {
                 getMimeTypes(types)
