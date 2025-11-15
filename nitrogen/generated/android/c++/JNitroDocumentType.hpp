@@ -47,6 +47,9 @@ namespace margelo::nitro::nitrodocumentpicker {
       static const auto fieldPPTX = clazz->getStaticField<JNitroDocumentType>("PPTX");
       static const auto fieldTXT = clazz->getStaticField<JNitroDocumentType>("TXT");
       static const auto fieldCSV = clazz->getStaticField<JNitroDocumentType>("CSV");
+      static const auto fieldIMAGE = clazz->getStaticField<JNitroDocumentType>("IMAGE");
+      static const auto fieldVIDEO = clazz->getStaticField<JNitroDocumentType>("VIDEO");
+      static const auto fieldAUDIO = clazz->getStaticField<JNitroDocumentType>("AUDIO");
       
       switch (value) {
         case NitroDocumentType::PDF:
@@ -61,6 +64,12 @@ namespace margelo::nitro::nitrodocumentpicker {
           return clazz->getStaticFieldValue(fieldTXT);
         case NitroDocumentType::CSV:
           return clazz->getStaticFieldValue(fieldCSV);
+        case NitroDocumentType::IMAGE:
+          return clazz->getStaticFieldValue(fieldIMAGE);
+        case NitroDocumentType::VIDEO:
+          return clazz->getStaticFieldValue(fieldVIDEO);
+        case NitroDocumentType::AUDIO:
+          return clazz->getStaticFieldValue(fieldAUDIO);
         default:
           std::string stringValue = std::to_string(static_cast<int>(value));
           throw std::invalid_argument("Invalid enum value (" + stringValue + "!");

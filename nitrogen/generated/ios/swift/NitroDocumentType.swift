@@ -29,6 +29,12 @@ public extension NitroDocumentType {
         self = .txt
       case "csv":
         self = .csv
+      case "image":
+        self = .image
+      case "video":
+        self = .video
+      case "audio":
+        self = .audio
       default:
         return nil
     }
@@ -51,6 +57,12 @@ public extension NitroDocumentType {
         return "txt"
       case .csv:
         return "csv"
+      case .image:
+        return "image"
+      case .video:
+        return "video"
+      case .audio:
+        return "audio"
     }
   }
 }

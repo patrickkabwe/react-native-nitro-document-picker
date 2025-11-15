@@ -21,7 +21,10 @@ enum class NitroDocumentType {
   XLSX,
   PPTX,
   TXT,
-  CSV;
+  CSV,
+  IMAGE,
+  VIDEO,
+  AUDIO;
 
   @DoNotStrip
   @Keep

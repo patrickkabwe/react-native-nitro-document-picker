@@ -17,7 +17,7 @@ import {
 
 type FileResult = NitroDocumentPickerResult | NitroDocumentPickerResult[];
 
-const types: NitroDocumentType[] = ['csv', 'txt', 'pdf', 'docx', 'xlsx', 'pptx'];
+const types: NitroDocumentType[] = ['csv', 'txt', 'pdf', 'docx', 'xlsx', 'pptx', 'image', 'video', 'audio'];
 
 function HomeScreen(): React.JSX.Element {
   const [result, setResult] = useState<FileResult | null>(null);
@@ -64,7 +64,7 @@ function HomeScreen(): React.JSX.Element {
     try {
       setIsLoading(true);
       const pickedFile = await NitroDocumentPicker.pick({
-        types: ['pdf'],
+        types: ['pdf', 'image', 'video', 'audio'],
         multiple: false,
         maxFileSize: 5 * 1024 * 1024, // 5MB
       });

@@ -113,8 +113,17 @@ extension NitroDocumentPickerImpl {
     }
 
     private func getDocTypes(for docTypes: [NitroDocumentType]) -> [UTType]? {
-        let utTypes = docTypes.flatMap { docType in
-            UTType.types(tag: docType.stringValue, tagClass: .filenameExtension, conformingTo: nil)
+        let utTypes = docTypes.flatMap { docType -> [UTType] in
+            switch docType.stringValue {
+            case "image":
+                return [UTType.image]
+            case "video":
+                return [UTType.movie, UTType.video]
+            case "audio":
+                return [UTType.audio]
+            default:
+                return UTType.types(tag: docType.stringValue, tagClass: .filenameExtension, conformingTo: nil)
+            }
         }
         return utTypes.isEmpty ? nil : utTypes
     }
