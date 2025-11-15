@@ -1,9 +1,68 @@
 
-export type NitroDocumentType = 'pdf' | 'docx' | 'xlsx' | 'pptx' | 'txt' | 'csv' | 'image' | 'video' | 'audio'
+export type NitroDocumentType =
+    // All file types
+    | '*'
+    // Existing document types
+    | 'pdf'
+    | 'docx'
+    | 'xlsx'
+    | 'pptx'
+    | 'txt'
+    | 'csv'
+    // Rich Text/Markup
+    | 'rtf'
+    | 'html'
+    | 'xml'
+    | 'md'
+    | 'markdown'
+    // Archives
+    | 'zip'
+    // Code files
+    | 'js'
+    | 'javascript'
+    | 'ts'
+    | 'typescript'
+    | 'json'
+    | 'css'
+    | 'py'
+    | 'cpp'
+    | 'c'
+    | 'swift'
+    | 'kt'
+    | 'kotlin'
+    // E-books
+    | 'epub'
+    // Fonts
+    | 'ttf'
+    | 'otf'
+    // Databases
+    | 'db'
+    | 'sqlite'
+    // Config files
+    | 'yaml'
+    | 'yml'
+    // CAD/Design
+    | 'svg'
+    // Audio types
+    | 'mp3'
+    | 'wav'
+    // Video types
+    | 'mp4'
+    | 'mov'
+    | 'avi'
+    | 'mkv'
+    | 'webm'
+    // Image types
+    | 'jpg'
+    | 'jpeg'
+    | 'png'
+    | 'gif'
+    | 'webp'
 
 export type NitroDocumentPickerOptions = {
     /**
      * The type of documents to pick.
+     * Use '*' to allow all file types.
      */
     types: NitroDocumentType[]
     /**

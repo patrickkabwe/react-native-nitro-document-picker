@@ -94,7 +94,8 @@ Opens the document picker with the specified options.
 ```typescript
 interface NitroDocumentPickerOptions {
   /**
-   * Array of document types to allow for selection
+   * Array of document types to allow for selection.
+   * Use '*' to allow all file types.
    */
   types: NitroDocumentType[]
 
@@ -118,15 +119,68 @@ interface NitroDocumentPickerOptions {
 
 Supported document types:
 
-```typescript
-type NitroDocumentType =
-  | 'pdf' // PDF documents
-  | 'docx' // Microsoft Word documents
-  | 'xlsx' // Microsoft Excel spreadsheets
-  | 'pptx' // Microsoft PowerPoint presentations
-  | 'txt' // Plain text files
-  | 'csv' // Comma-separated values files
-```
+**All File Types:**
+- `*` - Allow picking any file type
+
+**Document Types:**
+- `pdf` - PDF documents
+- `docx` - Microsoft Word documents
+- `xlsx` - Microsoft Excel spreadsheets
+- `pptx` - Microsoft PowerPoint presentations
+- `txt` - Plain text files
+- `csv` - Comma-separated values files
+
+**Rich Text/Markup:**
+- `rtf` - Rich Text Format
+- `html` - HTML files
+- `xml` - XML files
+- `md`, `markdown` - Markdown files
+
+**Archives:**
+- `zip` - ZIP archives
+
+**Code Files:**
+- `js`, `javascript` - JavaScript files
+- `ts`, `typescript` - TypeScript files
+- `json` - JSON files
+- `css` - CSS files
+- `py` - Python files
+- `cpp`, `c` - C/C++ source files
+- `swift` - Swift source files
+- `kt`, `kotlin` - Kotlin source files
+
+**E-books:**
+- `epub` - EPUB e-books
+
+**Fonts:**
+- `ttf` - TrueType fonts
+- `otf` - OpenType fonts
+
+**Databases:**
+- `db`, `sqlite` - SQLite database files
+
+**Config Files:**
+- `yaml`, `yml` - YAML files
+
+**CAD/Design:**
+- `svg` - Scalable Vector Graphics
+
+**Image Types:**
+- `jpg`, `jpeg` - JPEG images
+- `png` - PNG images
+- `gif` - GIF images
+- `webp` - WebP images
+
+**Video Types:**
+- `mp4` - MP4 videos
+- `mov` - QuickTime videos
+- `avi` - AVI videos
+- `mkv` - Matroska videos
+- `webm` - WebM videos
+
+**Audio Types:**
+- `mp3` - MP3 audio
+- `wav` - WAV audio
 
 #### `NitroDocumentPickerResult`
 
@@ -213,6 +267,54 @@ const pickLocalDocuments = async () => {
     })
 
     console.log('Local files selected:', result.length)
+  } catch (error) {
+    console.error('Error:', error)
+  }
+}
+```
+
+### Pick Any File Type
+
+```typescript
+const pickAnyFile = async () => {
+  try {
+    const result = await NitroDocumentPicker.pick({
+      types: ['*'], // Use '*' to allow picking any file type
+      multiple: true,
+    })
+
+    console.log(`Selected ${result.length} files of any type:`)
+    result.forEach((file, index) => {
+      console.log(`${index + 1}. ${file.name} (${file.mimeType})`)
+    })
+  } catch (error) {
+    console.error('Error:', error)
+  }
+}
+```
+
+### Using Specific Media Types
+
+```typescript
+const pickSpecificMediaTypes = async () => {
+  try {
+    // Pick only JPEG and PNG images
+    const images = await NitroDocumentPicker.pick({
+      types: ['jpg', 'png'],
+      multiple: true,
+    })
+
+    // Pick only MP3 and WAV audio files
+    const audioFiles = await NitroDocumentPicker.pick({
+      types: ['mp3', 'wav'],
+      multiple: true,
+    })
+
+    // Pick only MP4 videos
+    const videos = await NitroDocumentPicker.pick({
+      types: ['mp4'],
+      multiple: true,
+    })
   } catch (error) {
     console.error('Error:', error)
   }

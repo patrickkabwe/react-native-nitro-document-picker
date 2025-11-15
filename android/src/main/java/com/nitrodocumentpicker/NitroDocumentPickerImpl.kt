@@ -44,7 +44,20 @@ class NitroDocumentPicker(
                 pickerContinuation = null
             }
 
-            val mimeTypes = getMimeTypes(options.types)
+            // Handle types array
+            val types = options.types
+            if (types.isEmpty()) {
+                continuation.cancel(CancellationException("No document types specified. Provide types array with at least one type or use '*' for all types."))
+                return@suspendCancellableCoroutine
+            }
+            
+            // Check if '*' is in the types array
+            val mimeTypes = if (types.any { it.stringValue == "*" }) {
+                listOf("*/*")
+            } else {
+                getMimeTypes(types)
+            }
+            
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
                 addCategory(Intent.CATEGORY_OPENABLE)
                 type = if (mimeTypes.isNotEmpty()) mimeTypes[0] else "*/*"
@@ -144,15 +157,54 @@ class NitroDocumentPicker(
 
     private fun getMimeTypes(types: Array<NitroDocumentType>): List<String> = types.map {
         when (it) {
+            // Existing document types
             NitroDocumentType.PDF -> "application/pdf"
             NitroDocumentType.DOCX -> "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
             NitroDocumentType.XLSX -> "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             NitroDocumentType.PPTX -> "application/vnd.openxmlformats-officedocument.presentationml.presentation"
             NitroDocumentType.TXT -> "text/plain"
             NitroDocumentType.CSV -> "text/comma-separated-values"
-            NitroDocumentType.IMAGE -> "image/*"
-            NitroDocumentType.VIDEO -> "video/*"
-            NitroDocumentType.AUDIO -> "audio/*"
+            // Image types
+            NitroDocumentType.JPG, NitroDocumentType.JPEG -> "image/jpeg"
+            NitroDocumentType.PNG -> "image/png"
+            NitroDocumentType.GIF -> "image/gif"
+            NitroDocumentType.WEBP -> "image/webp"
+            // Video types
+            NitroDocumentType.MP4 -> "video/mp4"
+            NitroDocumentType.MOV -> "video/quicktime"
+            NitroDocumentType.AVI -> "video/x-msvideo"
+            NitroDocumentType.MKV -> "video/x-matroska"
+            NitroDocumentType.WEBM -> "video/webm"
+            // Audio types
+            NitroDocumentType.MP3 -> "audio/mpeg"
+            NitroDocumentType.WAV -> "audio/wav"
+            // Rich Text/Markup
+            NitroDocumentType.RTF -> "application/rtf"
+            NitroDocumentType.HTML -> "text/html"
+            NitroDocumentType.XML -> "application/xml"
+            NitroDocumentType.MD, NitroDocumentType.MARKDOWN -> "text/markdown"
+            // Archives
+            NitroDocumentType.ZIP -> "application/zip"
+            // Code files
+            NitroDocumentType.JS, NitroDocumentType.JAVASCRIPT -> "application/javascript"
+            NitroDocumentType.TS, NitroDocumentType.TYPESCRIPT -> "application/typescript"
+            NitroDocumentType.JSON -> "application/json"
+            NitroDocumentType.CSS -> "text/css"
+            NitroDocumentType.PY -> "text/x-python"
+            NitroDocumentType.CPP, NitroDocumentType.C -> "text/x-c++src"
+            NitroDocumentType.SWIFT -> "text/x-swift"
+            NitroDocumentType.KT, NitroDocumentType.KOTLIN -> "text/x-kotlin"
+            // E-books
+            NitroDocumentType.EPUB -> "application/epub+zip"
+            // Fonts
+            NitroDocumentType.TTF -> "font/ttf"
+            NitroDocumentType.OTF -> "font/otf"
+            // Databases
+            NitroDocumentType.DB, NitroDocumentType.SQLITE -> "application/x-sqlite3"
+            // Config files
+            NitroDocumentType.YAML, NitroDocumentType.YML -> "application/x-yaml"
+            // CAD/Design
+            NitroDocumentType.SVG -> "image/svg+xml"
         }
     }
 

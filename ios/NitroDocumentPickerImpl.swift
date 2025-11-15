@@ -20,14 +20,20 @@ class NitroDocumentPickerImpl: NSObject {
             self.options = options
             self.continuation = continuation
             
-            guard let docTypes = self.getDocTypes(for: options.types) else {
-                var msg = "Unsupported document types"
-                if options.types.isEmpty {
-                    msg += ": No document types specified"
-                } else {
-                    msg += ": \(options.types.map(\.stringValue).joined(separator: ", "))"
+            guard !options.types.isEmpty else {
+                return self.resumeWithError(RuntimeError.error(withMessage: "No document types specified. Provide types array with at least one type or use '*' for all types."))
+            }
+            
+            // Check if '*' is in the types array
+            let docTypes: [UTType]
+            if options.types.contains(where: { $0.stringValue == "*" }) {
+                docTypes = [UTType.item]
+            } else {
+                guard let resolvedTypes = self.getDocTypes(for: options.types) else {
+                    let msg = "Unsupported document types: \(options.types.map(\.stringValue).joined(separator: ", "))"
+                    return self.resumeWithError(RuntimeError.error(withMessage: msg))
                 }
-                return self.resumeWithError(RuntimeError.error(withMessage: msg))
+                docTypes = resolvedTypes
             }
             do {
                 let rootVC = try self.getRootViewController()
@@ -138,12 +144,105 @@ extension NitroDocumentPickerImpl {
     private func getDocTypes(for docTypes: [NitroDocumentType]) -> [UTType]? {
         let utTypes = docTypes.flatMap { docType -> [UTType] in
             switch docType.stringValue {
-            case "image":
-                return [UTType.image]
-            case "video":
-                return [UTType.movie, UTType.video]
-            case "audio":
-                return [UTType.audio]
+            // All file types
+            case "*":
+                return [UTType.item]
+            // Image types
+            case "jpg", "jpeg":
+                return [UTType.jpeg]
+            case "png":
+                return [UTType.png]
+            case "gif":
+                return [UTType.gif]
+            case "webp":
+                return [UTType.webP]
+            // Video types
+            case "mp4":
+                return [UTType.mpeg4Movie]
+            case "mov":
+                return [UTType.quickTimeMovie]
+            case "avi":
+                return [UTType.avi]
+            case "mkv":
+                if let mkvType = UTType("public.mkv") {
+                    return [mkvType]
+                }
+                return UTType.types(tag: "mkv", tagClass: .filenameExtension, conformingTo: nil)
+            case "webm":
+                if let webmType = UTType("public.webm") {
+                    return [webmType]
+                }
+                return UTType.types(tag: "webm", tagClass: .filenameExtension, conformingTo: nil)
+            // Audio types
+            case "mp3":
+                return [UTType.mp3]
+            case "wav":
+                return [UTType.wav]
+            // Rich Text/Markup
+            case "rtf":
+                return [UTType.rtf]
+            case "html":
+                return [UTType.html]
+            case "xml":
+                return [UTType.xml]
+            case "md", "markdown":
+                if let markdownType = UTType("public.markdown") {
+                    return [markdownType]
+                }
+                return [UTType.plainText]
+            // Archives
+            case "zip":
+                return [UTType.zip]
+            // Code files
+            case "js", "javascript":
+                return [UTType.javaScript]
+            case "ts", "typescript":
+                if let tsType = UTType("public.typescript") {
+                    return [tsType]
+                }
+                return UTType.types(tag: "ts", tagClass: .filenameExtension, conformingTo: nil)
+            case "json":
+                return [UTType.json]
+            case "css":
+                return [UTType.css]
+            case "py":
+                return [UTType.pythonScript]
+            case "cpp", "c":
+                return [UTType.cPlusPlusSource]
+            case "swift":
+                if let swiftType = UTType("public.swift-source") {
+                    return [swiftType]
+                }
+                return UTType.types(tag: "swift", tagClass: .filenameExtension, conformingTo: nil)
+            case "kt", "kotlin":
+                if let kotlinType = UTType("public.kotlin-source") {
+                    return [kotlinType]
+                }
+                return UTType.types(tag: "kt", tagClass: .filenameExtension, conformingTo: nil)
+            // E-books
+            case "epub":
+                return [UTType.epub]
+            // Fonts
+            case "ttf":
+                return [UTType.font]
+            case "otf":
+                return [UTType.font]
+            // Databases
+            case "db", "sqlite":
+                if let dbType = UTType("public.database") {
+                    return [dbType]
+                }
+                return UTType.types(tag: "db", tagClass: .filenameExtension, conformingTo: nil)
+            // Config files
+            case "yaml", "yml":
+                if let yamlType = UTType("public.yaml") {
+                    return [yamlType]
+                }
+                return UTType.types(tag: "yaml", tagClass: .filenameExtension, conformingTo: nil)
+            // CAD/Design
+            case "svg":
+                return [UTType.svg]
+            // Default: try to resolve by file extension
             default:
                 return UTType.types(tag: docType.stringValue, tagClass: .filenameExtension, conformingTo: nil)
             }

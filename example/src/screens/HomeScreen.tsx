@@ -17,7 +17,10 @@ import {
 
 type FileResult = NitroDocumentPickerResult | NitroDocumentPickerResult[];
 
-const types: NitroDocumentType[] = ['csv', 'txt', 'pdf', 'docx', 'xlsx', 'pptx', 'image', 'video', 'audio'];
+const types: NitroDocumentType[] = [
+  'csv', 'txt', 'pdf', 'docx', 'xlsx', 'pptx',
+  'jpg', 'png', 'mp4', 'mp3', 'zip', 'json'
+];
 
 function HomeScreen(): React.JSX.Element {
   const [result, setResult] = useState<FileResult | null>(null);
@@ -47,6 +50,24 @@ function HomeScreen(): React.JSX.Element {
       setIsLoading(true);
       const pickedFiles = await NitroDocumentPicker.pick({
         types,
+        multiple: true,
+      });
+      setResult(pickedFiles);
+    } catch (error: any) {
+      if (error?.message?.includes('cancelled')) {
+        return;
+      }
+      Alert.alert('Error', error?.message || 'Failed to pick documents');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handlePickAllTypes = async () => {
+    try {
+      setIsLoading(true);
+      const pickedFiles = await NitroDocumentPicker.pick({
+        types: ['*'],
         multiple: true,
       });
       setResult(pickedFiles);
@@ -97,6 +118,15 @@ function HomeScreen(): React.JSX.Element {
               {isLoading ? '⏳ Loading...' : '📚 Pick Multiple Files'}
             </Text>
           </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[styles.button, styles.tertiaryButton]}
+            onPress={handlePickAllTypes}
+            disabled={isLoading}>
+            <Text style={styles.buttonText}>
+              {isLoading ? '⏳ Loading...' : '🌐 Pick Any File Type'}
+            </Text>
+          </TouchableOpacity>
         </View>
 
         {files.length > 0 && (
@@ -144,6 +174,9 @@ function HomeScreen(): React.JSX.Element {
           <Text style={styles.infoText}>• Lightning-fast performance</Text>
           <Text style={styles.infoText}>• Parallel file processing</Text>
           <Text style={styles.infoText}>• Multiple file support</Text>
+          <Text style={styles.infoText}>• Support for 70+ file types</Text>
+          <Text style={styles.infoText}>• Specific media type selection</Text>
+          <Text style={styles.infoText}>• Pick any file type with '*' type</Text>
           <Text style={styles.infoText}>• Cloud storage support (iCloud Drive, Google Drive, Dropbox, OneDrive, etc.)</Text>
         </View>
       </ScrollView>
