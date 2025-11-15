@@ -204,7 +204,14 @@ extension NitroDocumentPickerImpl {
             case "json":
                 return [UTType.json]
             case "css":
-                return [UTType.css]
+                if #available(iOS 18.0, *) {
+                    return [UTType.css]
+                } else {
+                    if let cssType = UTType("public.css") {
+                        return [cssType]
+                    }
+                    return UTType.types(tag: "css", tagClass: .filenameExtension, conformingTo: nil)
+                }
             case "py":
                 return [UTType.pythonScript]
             case "cpp", "c":
