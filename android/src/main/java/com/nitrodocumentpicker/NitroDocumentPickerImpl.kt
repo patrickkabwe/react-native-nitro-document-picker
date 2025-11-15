@@ -52,7 +52,7 @@ class NitroDocumentPicker(
             }
             
             // Check if '*' is in the types array
-            val mimeTypes = if (types.any { it.stringValue == "*" }) {
+            val mimeTypes = if (types.any { it.toString() == "*" }) {
                 listOf("*/*")
             } else {
                 getMimeTypes(types)
@@ -205,6 +205,7 @@ class NitroDocumentPicker(
             NitroDocumentType.YAML, NitroDocumentType.YML -> "application/x-yaml"
             // CAD/Design
             NitroDocumentType.SVG -> "image/svg+xml"
+            else -> throw Error("Unsupported document type: $it")
         }
     }
 
