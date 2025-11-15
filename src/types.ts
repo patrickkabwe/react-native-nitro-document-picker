@@ -12,11 +12,6 @@ export type NitroDocumentPickerOptions = {
      */
     multiple?: boolean
     /**
-     * The maximum file size in bytes.
-     * @default 50 * 1024 * 1024 (50MB)
-     */
-    maxFileSize?: number
-    /**
      * Local only mode.
      * @platform android
      * @default false

@@ -60,24 +60,6 @@ function HomeScreen(): React.JSX.Element {
     }
   };
 
-  const handlePickWithSizeLimit = async () => {
-    try {
-      setIsLoading(true);
-      const pickedFile = await NitroDocumentPicker.pick({
-        types: ['pdf', 'image', 'video', 'audio'],
-        multiple: false,
-        maxFileSize: 5 * 1024 * 1024, // 5MB
-      });
-      setResult(pickedFile);
-    } catch (error: any) {
-      if (error?.message?.includes('cancelled')) {
-        return;
-      }
-      Alert.alert('Error', error?.message || 'Failed to pick document');
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const formatFileSize = (bytes: number): string => {
     if (bytes < 1024) return bytes + ' B';
@@ -113,15 +95,6 @@ function HomeScreen(): React.JSX.Element {
             disabled={isLoading}>
             <Text style={styles.buttonText}>
               {isLoading ? '⏳ Loading...' : '📚 Pick Multiple Files'}
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[styles.button, styles.tertiaryButton]}
-            onPress={handlePickWithSizeLimit}
-            disabled={isLoading}>
-            <Text style={styles.buttonText}>
-              {isLoading ? '⏳ Loading...' : '📏 Pick PDF (5MB limit)'}
             </Text>
           </TouchableOpacity>
         </View>
@@ -170,7 +143,6 @@ function HomeScreen(): React.JSX.Element {
           <Text style={styles.infoTitle}>✨ Features</Text>
           <Text style={styles.infoText}>• Lightning-fast performance</Text>
           <Text style={styles.infoText}>• Parallel file processing</Text>
-          <Text style={styles.infoText}>• File size validation</Text>
           <Text style={styles.infoText}>• Multiple file support</Text>
           <Text style={styles.infoText}>• Cloud storage support (iCloud Drive, Google Drive, Dropbox, OneDrive, etc.)</Text>
         </View>

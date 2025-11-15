@@ -57,7 +57,6 @@ export default function App() {
       const result = await NitroDocumentPicker.pick({
         types: ['pdf', 'docx', 'csv'],
         multiple: true,
-        maxFileSize: 10 * 1024 * 1024, // 10MB
       });
       setSelectedFiles(result);
     } catch (error) {
@@ -104,12 +103,6 @@ interface NitroDocumentPickerOptions {
    * @default false
    */
   multiple?: boolean
-
-  /**
-   * Maximum file size in bytes
-   * @default 50 * 1024 * 1024 (50MB)
-   */
-  maxFileSize?: number
 
   /**
    * Local only mode (Android only)
@@ -188,7 +181,7 @@ const pickSingleDocument = async () => {
 }
 ```
 
-### Multiple File Selection with Size Limit
+### Multiple File Selection
 
 ```typescript
 const pickMultipleDocuments = async () => {
@@ -196,7 +189,6 @@ const pickMultipleDocuments = async () => {
     const result = await NitroDocumentPicker.pick({
       types: ['pdf', 'docx', 'xlsx'],
       multiple: true,
-      maxFileSize: 5 * 1024 * 1024, // 5MB limit
     })
 
     console.log(`Selected ${result.length} files:`)
@@ -242,8 +234,6 @@ const handleDocumentPicking = async () => {
   } catch (error) {
     if (error.message.includes('cancelled')) {
       console.log('User cancelled the picker')
-    } else if (error.message.includes('size')) {
-      console.log('File too large')
     } else {
       console.error('Unexpected error:', error)
     }
@@ -257,14 +247,12 @@ const handleDocumentPicking = async () => {
 
 - Uses `UIDocumentPickerViewController` for native document picking
 - Supports all document types through UTType system
-- File size limits are enforced during processing
 - Provides native iOS document picker UI
 
 ### Android
 
 - Uses `Intent.ACTION_OPEN_DOCUMENT` for document selection
 - Supports `localOnly` option to restrict to local files
-- File size limits are configurable
 - Integrates with Android's document providers
 
 ## 🎨 Example App
@@ -297,12 +285,7 @@ bun run android
    - Ensure you have installed both `react-native-nitro-document-picker` and `react-native-nitro-modules`
    - Run `pod install` for iOS projects
 
-2. **File size too large errors**
-
-   - Adjust the `maxFileSize` option to accommodate larger files
-   - Consider implementing chunked upload for very large files
-
-3. **Unsupported file types**
+2. **Unsupported file types**
 
    - Check that the file type is included in the `types` array
    - Verify the file extension matches the supported types
