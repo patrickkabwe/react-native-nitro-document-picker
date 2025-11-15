@@ -156,15 +156,6 @@ namespace margelo::nitro::nitrodocumentpicker::bridge::swift {
     return std::optional<bool>(value);
   }
   
-  // pragma MARK: std::optional<double>
-  /**
-   * Specialized version of `std::optional<double>`.
-   */
-  using std__optional_double_ = std::optional<double>;
-  inline std::optional<double> create_std__optional_double_(const double& value) {
-    return std::optional<double>(value);
-  }
-  
   // pragma MARK: std::shared_ptr<margelo::nitro::nitrodocumentpicker::HybridNitroDocumentPickerSpec>
   /**
    * Specialized version of `std::shared_ptr<margelo::nitro::nitrodocumentpicker::HybridNitroDocumentPickerSpec>`.

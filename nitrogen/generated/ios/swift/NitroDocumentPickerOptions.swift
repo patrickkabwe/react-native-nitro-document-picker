@@ -18,7 +18,7 @@ public extension NitroDocumentPickerOptions {
   /**
    * Create a new instance of `NitroDocumentPickerOptions`.
    */
-  init(types: [NitroDocumentType], multiple: Bool?, maxFileSize: Double?, localOnly: Bool?) {
+  init(types: [NitroDocumentType], multiple: Bool?, localOnly: Bool?) {
     self.init({ () -> bridge.std__vector_NitroDocumentType_ in
       var __vector = bridge.create_std__vector_NitroDocumentType_(types.count)
       for __item in types {
@@ -28,12 +28,6 @@ public extension NitroDocumentPickerOptions {
     }(), { () -> bridge.std__optional_bool_ in
       if let __unwrappedValue = multiple {
         return bridge.create_std__optional_bool_(__unwrappedValue)
-      } else {
-        return .init()
-      }
-    }(), { () -> bridge.std__optional_double_ in
-      if let __unwrappedValue = maxFileSize {
-        return bridge.create_std__optional_double_(__unwrappedValue)
       } else {
         return .init()
       }
@@ -73,23 +67,6 @@ public extension NitroDocumentPickerOptions {
       self.__multiple = { () -> bridge.std__optional_bool_ in
         if let __unwrappedValue = newValue {
           return bridge.create_std__optional_bool_(__unwrappedValue)
-        } else {
-          return .init()
-        }
-      }()
-    }
-  }
-  
-  var maxFileSize: Double? {
-    @inline(__always)
-    get {
-      return self.__maxFileSize.value
-    }
-    @inline(__always)
-    set {
-      self.__maxFileSize = { () -> bridge.std__optional_double_ in
-        if let __unwrappedValue = newValue {
-          return bridge.create_std__optional_double_(__unwrappedValue)
         } else {
           return .init()
         }

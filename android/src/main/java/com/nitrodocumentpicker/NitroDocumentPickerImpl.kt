@@ -32,7 +32,6 @@ class NitroDocumentPicker(
 
     private var pickerContinuation: CancellableContinuation<Array<NitroDocumentPickerResult>>? = null
     private var launcher: ActivityResultLauncher<Intent>? = null
-    private var maxFileSize: Double? = null
 
     init {
         context.addLifecycleEventListener(this)
@@ -41,7 +40,6 @@ class NitroDocumentPicker(
     suspend fun pick(options: NitroDocumentPickerOptions): Array<NitroDocumentPickerResult> =
         suspendCancellableCoroutine { continuation ->
             pickerContinuation = continuation
-            maxFileSize = options.maxFileSize
             continuation.invokeOnCancellation {
                 pickerContinuation = null
             }
@@ -58,7 +56,6 @@ class NitroDocumentPicker(
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                     putExtra(DocumentsContract.EXTRA_INITIAL_URI, getInitialUri())
                 }
-                putExtra("MAX_FILE_SIZE", options.maxFileSize)
             }
 
             launcher?.launch(intent)
@@ -69,7 +66,7 @@ class NitroDocumentPicker(
         return externalFilesDir?.toUri()
     }
 
-    private suspend fun handlePickerResult(resultCode: Int, data: Intent?, maxFileSize: Double?) {
+    private suspend fun handlePickerResult(resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK && data != null) {
             val uris = mutableListOf<Uri>()
 
@@ -82,12 +79,12 @@ class NitroDocumentPicker(
             }
             
             val results: List<NitroDocumentPickerResult> = if (uris.size <= 3) {
-                uris.map { uri -> resolveUriToResult(uri, maxFileSize) }
+                uris.map { uri -> resolveUriToResult(uri) }
             } else {
                 coroutineScope {
                     uris.map { uri ->
                         async(Dispatchers.IO) {
-                            resolveUriToResult(uri, maxFileSize)
+                            resolveUriToResult(uri)
                         }
                     }.awaitAll()
                 }
@@ -109,7 +106,7 @@ class NitroDocumentPicker(
                 ACTIVITY_RESULT_KEY, ActivityResultContracts.StartActivityForResult()
             ) { result ->
                 activity.lifecycleScope.launch(context = Dispatchers.Main) {
-                    handlePickerResult(result.resultCode, result.data, maxFileSize)
+                    handlePickerResult(result.resultCode, result.data)
                 }
             }
         }
@@ -122,7 +119,7 @@ class NitroDocumentPicker(
         launcher = null
     }
 
-    private fun resolveUriToResult(uri: Uri, maxFileSize: Double?): NitroDocumentPickerResult {
+    private fun resolveUriToResult(uri: Uri): NitroDocumentPickerResult {
         val contentResolver = context.contentResolver
         val projection = arrayOf(
             OpenableColumns.DISPLAY_NAME,
@@ -135,11 +132,6 @@ class NitroDocumentPicker(
             cursor.moveToFirst()
             cursor.getString(fileNameIdx) to cursor.getLong(sizeIdx)
         } ?: ("unknown" to -1L)
-
-        val hardLimit = maxFileSize?.toLong()
-        if (hardLimit != null && sizeFromCursor > 0 && sizeFromCursor > hardLimit) {
-            throw IllegalArgumentException("File too large: $sizeFromCursor > $hardLimit")
-        }
 
         return NitroDocumentPickerResult(
             uri = uri.toString(),
