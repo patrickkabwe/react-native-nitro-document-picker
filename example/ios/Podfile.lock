@@ -8,7 +8,7 @@ PODS:
   - hermes-engine (0.79.3):
     - hermes-engine/Pre-built (= 0.79.3)
   - hermes-engine/Pre-built (0.79.3)
-  - NitroDocumentPicker (1.0.1):
+  - NitroDocumentPicker (1.1.1):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1943,7 +1943,7 @@ SPEC CHECKSUMS:
   fmt: a40bb5bd0294ea969aaaba240a927bd33d878cdd
   glog: 5683914934d5b6e4240e497e0f4a3b42d1854183
   hermes-engine: 94ed01537bdeccaab1adbf94b040d115d6fa1a7f
-  NitroDocumentPicker: f9f9fe2ae88a1dbff823eed058fb0e8bf2b7118d
+  NitroDocumentPicker: 4750708d1450edb48a6f7037a8aff03b781f718b
   NitroModules: 9d7909d32350449193e913985cbd69160bff8ead
   RCT-Folly: e78785aa9ba2ed998ea4151e314036f6c49e6d82
   RCTDeprecation: c3e3f5b4ea83e7ff3bc86ce09e2a54b7affd687d
