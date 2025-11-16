@@ -12,6 +12,7 @@ import {
 import {
   NitroDocumentPicker,
   NitroDocumentPickerResult,
+  NitroDocumentPickerDirectoryResult,
   NitroDocumentType,
 } from 'react-native-nitro-document-picker';
 
@@ -24,6 +25,7 @@ const types: NitroDocumentType[] = [
 
 function HomeScreen(): React.JSX.Element {
   const [result, setResult] = useState<FileResult | null>(null);
+  const [directoryResult, setDirectoryResult] = useState<NitroDocumentPickerDirectoryResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const handlePickSingle = async () => {
@@ -81,6 +83,21 @@ function HomeScreen(): React.JSX.Element {
     }
   };
 
+  const handlePickDirectory = async () => {
+    try {
+      setIsLoading(true);
+      const directory = await NitroDocumentPicker.pickDirectory();
+      setDirectoryResult(directory);
+    } catch (error: any) {
+      if (error?.message?.includes('cancelled')) {
+        return;
+      }
+      Alert.alert('Error', error?.message || 'Failed to pick directory');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
 
   const formatFileSize = (bytes: number): string => {
     if (bytes < 1024) return bytes + ' B';
@@ -127,6 +144,15 @@ function HomeScreen(): React.JSX.Element {
               {isLoading ? '⏳ Loading...' : '🌐 Pick Any File Type'}
             </Text>
           </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[styles.button, styles.directoryButton]}
+            onPress={handlePickDirectory}
+            disabled={isLoading}>
+            <Text style={styles.buttonText}>
+              {isLoading ? '⏳ Loading...' : '📁 Pick Directory'}
+            </Text>
+          </TouchableOpacity>
         </View>
 
         {files.length > 0 && (
@@ -169,6 +195,34 @@ function HomeScreen(): React.JSX.Element {
           </View>
         )}
 
+        {directoryResult && (
+          <View style={styles.resultContainer}>
+            <View style={styles.resultHeader}>
+              <Text style={styles.resultTitle}>Directory Selected</Text>
+              <TouchableOpacity
+                style={styles.clearButton}
+                onPress={() => setDirectoryResult(null)}>
+                <Text style={styles.clearButtonText}>Clear</Text>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.fileCard}>
+              <View style={styles.fileHeader}>
+                <Text style={styles.fileIcon}>📁</Text>
+                <View style={styles.fileInfo}>
+                  <Text style={styles.fileName} numberOfLines={1}>
+                    {directoryResult.name}
+                  </Text>
+                  <Text style={styles.fileMeta}>Directory</Text>
+                </View>
+              </View>
+              <Text style={styles.filePath} numberOfLines={2}>
+                {directoryResult.uri}
+              </Text>
+            </View>
+          </View>
+        )}
+
         <View style={styles.infoCard}>
           <Text style={styles.infoTitle}>✨ Features</Text>
           <Text style={styles.infoText}>• Lightning-fast performance</Text>
@@ -177,6 +231,7 @@ function HomeScreen(): React.JSX.Element {
           <Text style={styles.infoText}>• Support for 70+ file types</Text>
           <Text style={styles.infoText}>• Specific media type selection</Text>
           <Text style={styles.infoText}>• Pick any file type with 'all' type</Text>
+          <Text style={styles.infoText}>• Directory/folder picking support</Text>
           <Text style={styles.infoText}>• Cloud storage support (iCloud Drive, Google Drive, Dropbox, OneDrive, etc.)</Text>
         </View>
       </ScrollView>
@@ -239,6 +294,9 @@ const styles = StyleSheet.create({
   },
   tertiaryButton: {
     backgroundColor: '#e67e22',
+  },
+  directoryButton: {
+    backgroundColor: '#27ae60',
   },
   buttonText: {
     color: '#ffffff',
