@@ -487,7 +487,15 @@ bun run android
 
 4. **Android permissions**
    - The package handles permissions automatically
+   - No manifest permissions are required for document or directory picking
+   - `ACTION_OPEN_DOCUMENT` and `ACTION_OPEN_DOCUMENT_TREE` use the Storage Access Framework (SAF) which handles permissions automatically
    - Ensure your app targets Android API 21 or higher
+
+5. **Android directory picking privacy warning**
+   - Android shows a privacy warning ("To protect your privacy, choose another folder") for directories that contain files
+   - This is expected Android behavior to protect user privacy
+   - Users can still select directories by tapping "Use this folder" or "Allow access"
+   - This warning cannot be disabled as it's a core Android security feature
 
 ## 🤝 Contributing
 
