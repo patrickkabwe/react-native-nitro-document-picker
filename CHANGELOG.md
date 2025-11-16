@@ -1,3 +1,15 @@
+## [1.1.1](https://github.com/patrickkabwe/react-native-nitro-document-picker/compare/v1.1.0...v1.1.1) (2025-11-16)
+
+### 📚 Documentation
+
+* convert NitroDocumentType section to table format ([929d298](https://github.com/patrickkabwe/react-native-nitro-document-picker/commit/929d29863ceecc3a6226765c38491ef951e3b721))
+* fix API reference return types and single file selection example ([055f23c](https://github.com/patrickkabwe/react-native-nitro-document-picker/commit/055f23ccd04fd2c7f8b105c679f2a99aa15e0be2))
+* organize NitroDocumentType by category sections ([4615f06](https://github.com/patrickkabwe/react-native-nitro-document-picker/commit/4615f062dd6dfeff6a080f7e4803baf920b8de8d))
+
+### 🛠️ Other changes
+
+* configure git author and committer in release workflow ([c322b7d](https://github.com/patrickkabwe/react-native-nitro-document-picker/commit/c322b7dceb5cdf3ee5c6c9d1235f0b81101b6951))
+
 ## [1.1.0](https://github.com/patrickkabwe/react-native-nitro-document-picker/compare/v1.0.1...v1.1.0) (2025-11-16)
 
 ### ✨ Features
