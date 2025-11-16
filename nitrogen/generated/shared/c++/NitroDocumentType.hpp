@@ -29,15 +29,51 @@ namespace margelo::nitro::nitrodocumentpicker {
    * An enum which can be represented as a JavaScript union (NitroDocumentType).
    */
   enum class NitroDocumentType {
-    PDF      SWIFT_NAME(pdf) = 0,
-    DOCX      SWIFT_NAME(docx) = 1,
-    XLSX      SWIFT_NAME(xlsx) = 2,
-    PPTX      SWIFT_NAME(pptx) = 3,
-    TXT      SWIFT_NAME(txt) = 4,
-    CSV      SWIFT_NAME(csv) = 5,
-    IMAGE      SWIFT_NAME(image) = 6,
-    VIDEO      SWIFT_NAME(video) = 7,
-    AUDIO      SWIFT_NAME(audio) = 8,
+    SWIFT      SWIFT_NAME(swift) = 0,
+    KOTLIN      SWIFT_NAME(kotlin) = 1,
+    ALL      SWIFT_NAME(all) = 2,
+    PDF      SWIFT_NAME(pdf) = 3,
+    DOCX      SWIFT_NAME(docx) = 4,
+    XLSX      SWIFT_NAME(xlsx) = 5,
+    PPTX      SWIFT_NAME(pptx) = 6,
+    TXT      SWIFT_NAME(txt) = 7,
+    CSV      SWIFT_NAME(csv) = 8,
+    RTF      SWIFT_NAME(rtf) = 9,
+    HTML      SWIFT_NAME(html) = 10,
+    XML      SWIFT_NAME(xml) = 11,
+    MD      SWIFT_NAME(md) = 12,
+    MARKDOWN      SWIFT_NAME(markdown) = 13,
+    ZIP      SWIFT_NAME(zip) = 14,
+    JS      SWIFT_NAME(js) = 15,
+    JAVASCRIPT      SWIFT_NAME(javascript) = 16,
+    TS      SWIFT_NAME(ts) = 17,
+    TYPESCRIPT      SWIFT_NAME(typescript) = 18,
+    JSON      SWIFT_NAME(json) = 19,
+    CSS      SWIFT_NAME(css) = 20,
+    PY      SWIFT_NAME(py) = 21,
+    CPP      SWIFT_NAME(cpp) = 22,
+    C      SWIFT_NAME(c) = 23,
+    KT      SWIFT_NAME(kt) = 24,
+    EPUB      SWIFT_NAME(epub) = 25,
+    TTF      SWIFT_NAME(ttf) = 26,
+    OTF      SWIFT_NAME(otf) = 27,
+    DB      SWIFT_NAME(db) = 28,
+    SQLITE      SWIFT_NAME(sqlite) = 29,
+    YAML      SWIFT_NAME(yaml) = 30,
+    YML      SWIFT_NAME(yml) = 31,
+    SVG      SWIFT_NAME(svg) = 32,
+    MP3      SWIFT_NAME(mp3) = 33,
+    WAV      SWIFT_NAME(wav) = 34,
+    MP4      SWIFT_NAME(mp4) = 35,
+    MOV      SWIFT_NAME(mov) = 36,
+    AVI      SWIFT_NAME(avi) = 37,
+    MKV      SWIFT_NAME(mkv) = 38,
+    WEBM      SWIFT_NAME(webm) = 39,
+    JPG      SWIFT_NAME(jpg) = 40,
+    JPEG      SWIFT_NAME(jpeg) = 41,
+    PNG      SWIFT_NAME(png) = 42,
+    GIF      SWIFT_NAME(gif) = 43,
+    WEBP      SWIFT_NAME(webp) = 44,
   } CLOSED_ENUM;
 
 } // namespace margelo::nitro::nitrodocumentpicker
@@ -52,30 +88,102 @@ namespace margelo::nitro {
     static inline NitroDocumentType fromJSI(jsi::Runtime& runtime, const jsi::Value& arg) {
       std::string unionValue = JSIConverter<std::string>::fromJSI(runtime, arg);
       switch (hashString(unionValue.c_str(), unionValue.size())) {
+        case hashString("swift"): return NitroDocumentType::SWIFT;
+        case hashString("kotlin"): return NitroDocumentType::KOTLIN;
+        case hashString("all"): return NitroDocumentType::ALL;
         case hashString("pdf"): return NitroDocumentType::PDF;
         case hashString("docx"): return NitroDocumentType::DOCX;
         case hashString("xlsx"): return NitroDocumentType::XLSX;
         case hashString("pptx"): return NitroDocumentType::PPTX;
         case hashString("txt"): return NitroDocumentType::TXT;
         case hashString("csv"): return NitroDocumentType::CSV;
-        case hashString("image"): return NitroDocumentType::IMAGE;
-        case hashString("video"): return NitroDocumentType::VIDEO;
-        case hashString("audio"): return NitroDocumentType::AUDIO;
+        case hashString("rtf"): return NitroDocumentType::RTF;
+        case hashString("html"): return NitroDocumentType::HTML;
+        case hashString("xml"): return NitroDocumentType::XML;
+        case hashString("md"): return NitroDocumentType::MD;
+        case hashString("markdown"): return NitroDocumentType::MARKDOWN;
+        case hashString("zip"): return NitroDocumentType::ZIP;
+        case hashString("js"): return NitroDocumentType::JS;
+        case hashString("javascript"): return NitroDocumentType::JAVASCRIPT;
+        case hashString("ts"): return NitroDocumentType::TS;
+        case hashString("typescript"): return NitroDocumentType::TYPESCRIPT;
+        case hashString("json"): return NitroDocumentType::JSON;
+        case hashString("css"): return NitroDocumentType::CSS;
+        case hashString("py"): return NitroDocumentType::PY;
+        case hashString("cpp"): return NitroDocumentType::CPP;
+        case hashString("c"): return NitroDocumentType::C;
+        case hashString("kt"): return NitroDocumentType::KT;
+        case hashString("epub"): return NitroDocumentType::EPUB;
+        case hashString("ttf"): return NitroDocumentType::TTF;
+        case hashString("otf"): return NitroDocumentType::OTF;
+        case hashString("db"): return NitroDocumentType::DB;
+        case hashString("sqlite"): return NitroDocumentType::SQLITE;
+        case hashString("yaml"): return NitroDocumentType::YAML;
+        case hashString("yml"): return NitroDocumentType::YML;
+        case hashString("svg"): return NitroDocumentType::SVG;
+        case hashString("mp3"): return NitroDocumentType::MP3;
+        case hashString("wav"): return NitroDocumentType::WAV;
+        case hashString("mp4"): return NitroDocumentType::MP4;
+        case hashString("mov"): return NitroDocumentType::MOV;
+        case hashString("avi"): return NitroDocumentType::AVI;
+        case hashString("mkv"): return NitroDocumentType::MKV;
+        case hashString("webm"): return NitroDocumentType::WEBM;
+        case hashString("jpg"): return NitroDocumentType::JPG;
+        case hashString("jpeg"): return NitroDocumentType::JPEG;
+        case hashString("png"): return NitroDocumentType::PNG;
+        case hashString("gif"): return NitroDocumentType::GIF;
+        case hashString("webp"): return NitroDocumentType::WEBP;
         default: [[unlikely]]
           throw std::invalid_argument("Cannot convert \"" + unionValue + "\" to enum NitroDocumentType - invalid value!");
       }
     }
     static inline jsi::Value toJSI(jsi::Runtime& runtime, NitroDocumentType arg) {
       switch (arg) {
+        case NitroDocumentType::SWIFT: return JSIConverter<std::string>::toJSI(runtime, "swift");
+        case NitroDocumentType::KOTLIN: return JSIConverter<std::string>::toJSI(runtime, "kotlin");
+        case NitroDocumentType::ALL: return JSIConverter<std::string>::toJSI(runtime, "all");
         case NitroDocumentType::PDF: return JSIConverter<std::string>::toJSI(runtime, "pdf");
         case NitroDocumentType::DOCX: return JSIConverter<std::string>::toJSI(runtime, "docx");
         case NitroDocumentType::XLSX: return JSIConverter<std::string>::toJSI(runtime, "xlsx");
         case NitroDocumentType::PPTX: return JSIConverter<std::string>::toJSI(runtime, "pptx");
         case NitroDocumentType::TXT: return JSIConverter<std::string>::toJSI(runtime, "txt");
         case NitroDocumentType::CSV: return JSIConverter<std::string>::toJSI(runtime, "csv");
-        case NitroDocumentType::IMAGE: return JSIConverter<std::string>::toJSI(runtime, "image");
-        case NitroDocumentType::VIDEO: return JSIConverter<std::string>::toJSI(runtime, "video");
-        case NitroDocumentType::AUDIO: return JSIConverter<std::string>::toJSI(runtime, "audio");
+        case NitroDocumentType::RTF: return JSIConverter<std::string>::toJSI(runtime, "rtf");
+        case NitroDocumentType::HTML: return JSIConverter<std::string>::toJSI(runtime, "html");
+        case NitroDocumentType::XML: return JSIConverter<std::string>::toJSI(runtime, "xml");
+        case NitroDocumentType::MD: return JSIConverter<std::string>::toJSI(runtime, "md");
+        case NitroDocumentType::MARKDOWN: return JSIConverter<std::string>::toJSI(runtime, "markdown");
+        case NitroDocumentType::ZIP: return JSIConverter<std::string>::toJSI(runtime, "zip");
+        case NitroDocumentType::JS: return JSIConverter<std::string>::toJSI(runtime, "js");
+        case NitroDocumentType::JAVASCRIPT: return JSIConverter<std::string>::toJSI(runtime, "javascript");
+        case NitroDocumentType::TS: return JSIConverter<std::string>::toJSI(runtime, "ts");
+        case NitroDocumentType::TYPESCRIPT: return JSIConverter<std::string>::toJSI(runtime, "typescript");
+        case NitroDocumentType::JSON: return JSIConverter<std::string>::toJSI(runtime, "json");
+        case NitroDocumentType::CSS: return JSIConverter<std::string>::toJSI(runtime, "css");
+        case NitroDocumentType::PY: return JSIConverter<std::string>::toJSI(runtime, "py");
+        case NitroDocumentType::CPP: return JSIConverter<std::string>::toJSI(runtime, "cpp");
+        case NitroDocumentType::C: return JSIConverter<std::string>::toJSI(runtime, "c");
+        case NitroDocumentType::KT: return JSIConverter<std::string>::toJSI(runtime, "kt");
+        case NitroDocumentType::EPUB: return JSIConverter<std::string>::toJSI(runtime, "epub");
+        case NitroDocumentType::TTF: return JSIConverter<std::string>::toJSI(runtime, "ttf");
+        case NitroDocumentType::OTF: return JSIConverter<std::string>::toJSI(runtime, "otf");
+        case NitroDocumentType::DB: return JSIConverter<std::string>::toJSI(runtime, "db");
+        case NitroDocumentType::SQLITE: return JSIConverter<std::string>::toJSI(runtime, "sqlite");
+        case NitroDocumentType::YAML: return JSIConverter<std::string>::toJSI(runtime, "yaml");
+        case NitroDocumentType::YML: return JSIConverter<std::string>::toJSI(runtime, "yml");
+        case NitroDocumentType::SVG: return JSIConverter<std::string>::toJSI(runtime, "svg");
+        case NitroDocumentType::MP3: return JSIConverter<std::string>::toJSI(runtime, "mp3");
+        case NitroDocumentType::WAV: return JSIConverter<std::string>::toJSI(runtime, "wav");
+        case NitroDocumentType::MP4: return JSIConverter<std::string>::toJSI(runtime, "mp4");
+        case NitroDocumentType::MOV: return JSIConverter<std::string>::toJSI(runtime, "mov");
+        case NitroDocumentType::AVI: return JSIConverter<std::string>::toJSI(runtime, "avi");
+        case NitroDocumentType::MKV: return JSIConverter<std::string>::toJSI(runtime, "mkv");
+        case NitroDocumentType::WEBM: return JSIConverter<std::string>::toJSI(runtime, "webm");
+        case NitroDocumentType::JPG: return JSIConverter<std::string>::toJSI(runtime, "jpg");
+        case NitroDocumentType::JPEG: return JSIConverter<std::string>::toJSI(runtime, "jpeg");
+        case NitroDocumentType::PNG: return JSIConverter<std::string>::toJSI(runtime, "png");
+        case NitroDocumentType::GIF: return JSIConverter<std::string>::toJSI(runtime, "gif");
+        case NitroDocumentType::WEBP: return JSIConverter<std::string>::toJSI(runtime, "webp");
         default: [[unlikely]]
           throw std::invalid_argument("Cannot convert NitroDocumentType to JS - invalid value: "
                                     + std::to_string(static_cast<int>(arg)) + "!");
@@ -87,15 +195,51 @@ namespace margelo::nitro {
       }
       std::string unionValue = JSIConverter<std::string>::fromJSI(runtime, value);
       switch (hashString(unionValue.c_str(), unionValue.size())) {
+        case hashString("swift"):
+        case hashString("kotlin"):
+        case hashString("all"):
         case hashString("pdf"):
         case hashString("docx"):
         case hashString("xlsx"):
         case hashString("pptx"):
         case hashString("txt"):
         case hashString("csv"):
-        case hashString("image"):
-        case hashString("video"):
-        case hashString("audio"):
+        case hashString("rtf"):
+        case hashString("html"):
+        case hashString("xml"):
+        case hashString("md"):
+        case hashString("markdown"):
+        case hashString("zip"):
+        case hashString("js"):
+        case hashString("javascript"):
+        case hashString("ts"):
+        case hashString("typescript"):
+        case hashString("json"):
+        case hashString("css"):
+        case hashString("py"):
+        case hashString("cpp"):
+        case hashString("c"):
+        case hashString("kt"):
+        case hashString("epub"):
+        case hashString("ttf"):
+        case hashString("otf"):
+        case hashString("db"):
+        case hashString("sqlite"):
+        case hashString("yaml"):
+        case hashString("yml"):
+        case hashString("svg"):
+        case hashString("mp3"):
+        case hashString("wav"):
+        case hashString("mp4"):
+        case hashString("mov"):
+        case hashString("avi"):
+        case hashString("mkv"):
+        case hashString("webm"):
+        case hashString("jpg"):
+        case hashString("jpeg"):
+        case hashString("png"):
+        case hashString("gif"):
+        case hashString("webp"):
           return true;
         default:
           return false;

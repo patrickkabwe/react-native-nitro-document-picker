@@ -41,17 +41,59 @@ namespace margelo::nitro::nitrodocumentpicker {
     [[maybe_unused]]
     static jni::alias_ref<JNitroDocumentType> fromCpp(NitroDocumentType value) {
       static const auto clazz = javaClassStatic();
+      static const auto fieldSWIFT = clazz->getStaticField<JNitroDocumentType>("SWIFT");
+      static const auto fieldKOTLIN = clazz->getStaticField<JNitroDocumentType>("KOTLIN");
+      static const auto fieldALL = clazz->getStaticField<JNitroDocumentType>("ALL");
       static const auto fieldPDF = clazz->getStaticField<JNitroDocumentType>("PDF");
       static const auto fieldDOCX = clazz->getStaticField<JNitroDocumentType>("DOCX");
       static const auto fieldXLSX = clazz->getStaticField<JNitroDocumentType>("XLSX");
       static const auto fieldPPTX = clazz->getStaticField<JNitroDocumentType>("PPTX");
       static const auto fieldTXT = clazz->getStaticField<JNitroDocumentType>("TXT");
       static const auto fieldCSV = clazz->getStaticField<JNitroDocumentType>("CSV");
-      static const auto fieldIMAGE = clazz->getStaticField<JNitroDocumentType>("IMAGE");
-      static const auto fieldVIDEO = clazz->getStaticField<JNitroDocumentType>("VIDEO");
-      static const auto fieldAUDIO = clazz->getStaticField<JNitroDocumentType>("AUDIO");
+      static const auto fieldRTF = clazz->getStaticField<JNitroDocumentType>("RTF");
+      static const auto fieldHTML = clazz->getStaticField<JNitroDocumentType>("HTML");
+      static const auto fieldXML = clazz->getStaticField<JNitroDocumentType>("XML");
+      static const auto fieldMD = clazz->getStaticField<JNitroDocumentType>("MD");
+      static const auto fieldMARKDOWN = clazz->getStaticField<JNitroDocumentType>("MARKDOWN");
+      static const auto fieldZIP = clazz->getStaticField<JNitroDocumentType>("ZIP");
+      static const auto fieldJS = clazz->getStaticField<JNitroDocumentType>("JS");
+      static const auto fieldJAVASCRIPT = clazz->getStaticField<JNitroDocumentType>("JAVASCRIPT");
+      static const auto fieldTS = clazz->getStaticField<JNitroDocumentType>("TS");
+      static const auto fieldTYPESCRIPT = clazz->getStaticField<JNitroDocumentType>("TYPESCRIPT");
+      static const auto fieldJSON = clazz->getStaticField<JNitroDocumentType>("JSON");
+      static const auto fieldCSS = clazz->getStaticField<JNitroDocumentType>("CSS");
+      static const auto fieldPY = clazz->getStaticField<JNitroDocumentType>("PY");
+      static const auto fieldCPP = clazz->getStaticField<JNitroDocumentType>("CPP");
+      static const auto fieldC = clazz->getStaticField<JNitroDocumentType>("C");
+      static const auto fieldKT = clazz->getStaticField<JNitroDocumentType>("KT");
+      static const auto fieldEPUB = clazz->getStaticField<JNitroDocumentType>("EPUB");
+      static const auto fieldTTF = clazz->getStaticField<JNitroDocumentType>("TTF");
+      static const auto fieldOTF = clazz->getStaticField<JNitroDocumentType>("OTF");
+      static const auto fieldDB = clazz->getStaticField<JNitroDocumentType>("DB");
+      static const auto fieldSQLITE = clazz->getStaticField<JNitroDocumentType>("SQLITE");
+      static const auto fieldYAML = clazz->getStaticField<JNitroDocumentType>("YAML");
+      static const auto fieldYML = clazz->getStaticField<JNitroDocumentType>("YML");
+      static const auto fieldSVG = clazz->getStaticField<JNitroDocumentType>("SVG");
+      static const auto fieldMP3 = clazz->getStaticField<JNitroDocumentType>("MP3");
+      static const auto fieldWAV = clazz->getStaticField<JNitroDocumentType>("WAV");
+      static const auto fieldMP4 = clazz->getStaticField<JNitroDocumentType>("MP4");
+      static const auto fieldMOV = clazz->getStaticField<JNitroDocumentType>("MOV");
+      static const auto fieldAVI = clazz->getStaticField<JNitroDocumentType>("AVI");
+      static const auto fieldMKV = clazz->getStaticField<JNitroDocumentType>("MKV");
+      static const auto fieldWEBM = clazz->getStaticField<JNitroDocumentType>("WEBM");
+      static const auto fieldJPG = clazz->getStaticField<JNitroDocumentType>("JPG");
+      static const auto fieldJPEG = clazz->getStaticField<JNitroDocumentType>("JPEG");
+      static const auto fieldPNG = clazz->getStaticField<JNitroDocumentType>("PNG");
+      static const auto fieldGIF = clazz->getStaticField<JNitroDocumentType>("GIF");
+      static const auto fieldWEBP = clazz->getStaticField<JNitroDocumentType>("WEBP");
       
       switch (value) {
+        case NitroDocumentType::SWIFT:
+          return clazz->getStaticFieldValue(fieldSWIFT);
+        case NitroDocumentType::KOTLIN:
+          return clazz->getStaticFieldValue(fieldKOTLIN);
+        case NitroDocumentType::ALL:
+          return clazz->getStaticFieldValue(fieldALL);
         case NitroDocumentType::PDF:
           return clazz->getStaticFieldValue(fieldPDF);
         case NitroDocumentType::DOCX:
@@ -64,12 +106,78 @@ namespace margelo::nitro::nitrodocumentpicker {
           return clazz->getStaticFieldValue(fieldTXT);
         case NitroDocumentType::CSV:
           return clazz->getStaticFieldValue(fieldCSV);
-        case NitroDocumentType::IMAGE:
-          return clazz->getStaticFieldValue(fieldIMAGE);
-        case NitroDocumentType::VIDEO:
-          return clazz->getStaticFieldValue(fieldVIDEO);
-        case NitroDocumentType::AUDIO:
-          return clazz->getStaticFieldValue(fieldAUDIO);
+        case NitroDocumentType::RTF:
+          return clazz->getStaticFieldValue(fieldRTF);
+        case NitroDocumentType::HTML:
+          return clazz->getStaticFieldValue(fieldHTML);
+        case NitroDocumentType::XML:
+          return clazz->getStaticFieldValue(fieldXML);
+        case NitroDocumentType::MD:
+          return clazz->getStaticFieldValue(fieldMD);
+        case NitroDocumentType::MARKDOWN:
+          return clazz->getStaticFieldValue(fieldMARKDOWN);
+        case NitroDocumentType::ZIP:
+          return clazz->getStaticFieldValue(fieldZIP);
+        case NitroDocumentType::JS:
+          return clazz->getStaticFieldValue(fieldJS);
+        case NitroDocumentType::JAVASCRIPT:
+          return clazz->getStaticFieldValue(fieldJAVASCRIPT);
+        case NitroDocumentType::TS:
+          return clazz->getStaticFieldValue(fieldTS);
+        case NitroDocumentType::TYPESCRIPT:
+          return clazz->getStaticFieldValue(fieldTYPESCRIPT);
+        case NitroDocumentType::JSON:
+          return clazz->getStaticFieldValue(fieldJSON);
+        case NitroDocumentType::CSS:
+          return clazz->getStaticFieldValue(fieldCSS);
+        case NitroDocumentType::PY:
+          return clazz->getStaticFieldValue(fieldPY);
+        case NitroDocumentType::CPP:
+          return clazz->getStaticFieldValue(fieldCPP);
+        case NitroDocumentType::C:
+          return clazz->getStaticFieldValue(fieldC);
+        case NitroDocumentType::KT:
+          return clazz->getStaticFieldValue(fieldKT);
+        case NitroDocumentType::EPUB:
+          return clazz->getStaticFieldValue(fieldEPUB);
+        case NitroDocumentType::TTF:
+          return clazz->getStaticFieldValue(fieldTTF);
+        case NitroDocumentType::OTF:
+          return clazz->getStaticFieldValue(fieldOTF);
+        case NitroDocumentType::DB:
+          return clazz->getStaticFieldValue(fieldDB);
+        case NitroDocumentType::SQLITE:
+          return clazz->getStaticFieldValue(fieldSQLITE);
+        case NitroDocumentType::YAML:
+          return clazz->getStaticFieldValue(fieldYAML);
+        case NitroDocumentType::YML:
+          return clazz->getStaticFieldValue(fieldYML);
+        case NitroDocumentType::SVG:
+          return clazz->getStaticFieldValue(fieldSVG);
+        case NitroDocumentType::MP3:
+          return clazz->getStaticFieldValue(fieldMP3);
+        case NitroDocumentType::WAV:
+          return clazz->getStaticFieldValue(fieldWAV);
+        case NitroDocumentType::MP4:
+          return clazz->getStaticFieldValue(fieldMP4);
+        case NitroDocumentType::MOV:
+          return clazz->getStaticFieldValue(fieldMOV);
+        case NitroDocumentType::AVI:
+          return clazz->getStaticFieldValue(fieldAVI);
+        case NitroDocumentType::MKV:
+          return clazz->getStaticFieldValue(fieldMKV);
+        case NitroDocumentType::WEBM:
+          return clazz->getStaticFieldValue(fieldWEBM);
+        case NitroDocumentType::JPG:
+          return clazz->getStaticFieldValue(fieldJPG);
+        case NitroDocumentType::JPEG:
+          return clazz->getStaticFieldValue(fieldJPEG);
+        case NitroDocumentType::PNG:
+          return clazz->getStaticFieldValue(fieldPNG);
+        case NitroDocumentType::GIF:
+          return clazz->getStaticFieldValue(fieldGIF);
+        case NitroDocumentType::WEBP:
+          return clazz->getStaticFieldValue(fieldWEBP);
         default:
           std::string stringValue = std::to_string(static_cast<int>(value));
           throw std::invalid_argument("Invalid enum value (" + stringValue + "!");

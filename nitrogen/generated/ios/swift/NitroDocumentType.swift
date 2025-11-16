@@ -17,6 +17,12 @@ public extension NitroDocumentType {
    */
   init?(fromString string: String) {
     switch string {
+      case "swift":
+        self = .swift
+      case "kotlin":
+        self = .kotlin
+      case "all":
+        self = .all
       case "pdf":
         self = .pdf
       case "docx":
@@ -29,12 +35,78 @@ public extension NitroDocumentType {
         self = .txt
       case "csv":
         self = .csv
-      case "image":
-        self = .image
-      case "video":
-        self = .video
-      case "audio":
-        self = .audio
+      case "rtf":
+        self = .rtf
+      case "html":
+        self = .html
+      case "xml":
+        self = .xml
+      case "md":
+        self = .md
+      case "markdown":
+        self = .markdown
+      case "zip":
+        self = .zip
+      case "js":
+        self = .js
+      case "javascript":
+        self = .javascript
+      case "ts":
+        self = .ts
+      case "typescript":
+        self = .typescript
+      case "json":
+        self = .json
+      case "css":
+        self = .css
+      case "py":
+        self = .py
+      case "cpp":
+        self = .cpp
+      case "c":
+        self = .c
+      case "kt":
+        self = .kt
+      case "epub":
+        self = .epub
+      case "ttf":
+        self = .ttf
+      case "otf":
+        self = .otf
+      case "db":
+        self = .db
+      case "sqlite":
+        self = .sqlite
+      case "yaml":
+        self = .yaml
+      case "yml":
+        self = .yml
+      case "svg":
+        self = .svg
+      case "mp3":
+        self = .mp3
+      case "wav":
+        self = .wav
+      case "mp4":
+        self = .mp4
+      case "mov":
+        self = .mov
+      case "avi":
+        self = .avi
+      case "mkv":
+        self = .mkv
+      case "webm":
+        self = .webm
+      case "jpg":
+        self = .jpg
+      case "jpeg":
+        self = .jpeg
+      case "png":
+        self = .png
+      case "gif":
+        self = .gif
+      case "webp":
+        self = .webp
       default:
         return nil
     }
@@ -45,6 +117,12 @@ public extension NitroDocumentType {
    */
   var stringValue: String {
     switch self {
+      case .swift:
+        return "swift"
+      case .kotlin:
+        return "kotlin"
+      case .all:
+        return "all"
       case .pdf:
         return "pdf"
       case .docx:
@@ -57,12 +135,78 @@ public extension NitroDocumentType {
         return "txt"
       case .csv:
         return "csv"
-      case .image:
-        return "image"
-      case .video:
-        return "video"
-      case .audio:
-        return "audio"
+      case .rtf:
+        return "rtf"
+      case .html:
+        return "html"
+      case .xml:
+        return "xml"
+      case .md:
+        return "md"
+      case .markdown:
+        return "markdown"
+      case .zip:
+        return "zip"
+      case .js:
+        return "js"
+      case .javascript:
+        return "javascript"
+      case .ts:
+        return "ts"
+      case .typescript:
+        return "typescript"
+      case .json:
+        return "json"
+      case .css:
+        return "css"
+      case .py:
+        return "py"
+      case .cpp:
+        return "cpp"
+      case .c:
+        return "c"
+      case .kt:
+        return "kt"
+      case .epub:
+        return "epub"
+      case .ttf:
+        return "ttf"
+      case .otf:
+        return "otf"
+      case .db:
+        return "db"
+      case .sqlite:
+        return "sqlite"
+      case .yaml:
+        return "yaml"
+      case .yml:
+        return "yml"
+      case .svg:
+        return "svg"
+      case .mp3:
+        return "mp3"
+      case .wav:
+        return "wav"
+      case .mp4:
+        return "mp4"
+      case .mov:
+        return "mov"
+      case .avi:
+        return "avi"
+      case .mkv:
+        return "mkv"
+      case .webm:
+        return "webm"
+      case .jpg:
+        return "jpg"
+      case .jpeg:
+        return "jpeg"
+      case .png:
+        return "png"
+      case .gif:
+        return "gif"
+      case .webp:
+        return "webp"
     }
   }
 }
