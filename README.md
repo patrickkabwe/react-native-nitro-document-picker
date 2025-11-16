@@ -121,45 +121,107 @@ interface NitroDocumentPickerOptions {
 
 Supported document types:
 
-| Type | Description | Category |
-|------|-------------|----------|
-| `all` | Allow picking any file type | All File Types |
-| `pdf` | PDF documents | Document Types |
-| `docx` | Microsoft Word documents | Document Types |
-| `xlsx` | Microsoft Excel spreadsheets | Document Types |
-| `pptx` | Microsoft PowerPoint presentations | Document Types |
-| `txt` | Plain text files | Document Types |
-| `csv` | Comma-separated values files | Document Types |
-| `rtf` | Rich Text Format | Rich Text/Markup |
-| `html` | HTML files | Rich Text/Markup |
-| `xml` | XML files | Rich Text/Markup |
-| `md`, `markdown` | Markdown files | Rich Text/Markup |
-| `zip` | ZIP archives | Archives |
-| `js`, `javascript` | JavaScript files | Code Files |
-| `ts`, `typescript` | TypeScript files | Code Files |
-| `json` | JSON files | Code Files |
-| `css` | CSS files | Code Files |
-| `py` | Python files | Code Files |
-| `cpp`, `c` | C/C++ source files | Code Files |
-| `swift` | Swift source files | Code Files |
-| `kt`, `kotlin` | Kotlin source files | Code Files |
-| `epub` | EPUB e-books | E-books |
-| `ttf` | TrueType fonts | Fonts |
-| `otf` | OpenType fonts | Fonts |
-| `db`, `sqlite` | SQLite database files | Databases |
-| `yaml`, `yml` | YAML files | Config Files |
-| `svg` | Scalable Vector Graphics | CAD/Design |
-| `jpg`, `jpeg` | JPEG images | Image Types |
-| `png` | PNG images | Image Types |
-| `gif` | GIF images | Image Types |
-| `webp` | WebP images | Image Types |
-| `mp4` | MP4 videos | Video Types |
-| `mov` | QuickTime videos | Video Types |
-| `avi` | AVI videos | Video Types |
-| `mkv` | Matroska videos | Video Types |
-| `webm` | WebM videos | Video Types |
-| `mp3` | MP3 audio | Audio Types |
-| `wav` | WAV audio | Audio Types |
+**All File Types**
+
+| Type | Description |
+|------|-------------|
+| `all` | Allow picking any file type |
+
+**Document Types**
+
+| Type | Description |
+|------|-------------|
+| `pdf` | PDF documents |
+| `docx` | Microsoft Word documents |
+| `xlsx` | Microsoft Excel spreadsheets |
+| `pptx` | Microsoft PowerPoint presentations |
+| `txt` | Plain text files |
+| `csv` | Comma-separated values files |
+
+**Rich Text/Markup**
+
+| Type | Description |
+|------|-------------|
+| `rtf` | Rich Text Format |
+| `html` | HTML files |
+| `xml` | XML files |
+| `md`, `markdown` | Markdown files |
+
+**Archives**
+
+| Type | Description |
+|------|-------------|
+| `zip` | ZIP archives |
+
+**Code Files**
+
+| Type | Description |
+|------|-------------|
+| `js`, `javascript` | JavaScript files |
+| `ts`, `typescript` | TypeScript files |
+| `json` | JSON files |
+| `css` | CSS files |
+| `py` | Python files |
+| `cpp`, `c` | C/C++ source files |
+| `swift` | Swift source files |
+| `kt`, `kotlin` | Kotlin source files |
+
+**E-books**
+
+| Type | Description |
+|------|-------------|
+| `epub` | EPUB e-books |
+
+**Fonts**
+
+| Type | Description |
+|------|-------------|
+| `ttf` | TrueType fonts |
+| `otf` | OpenType fonts |
+
+**Databases**
+
+| Type | Description |
+|------|-------------|
+| `db`, `sqlite` | SQLite database files |
+
+**Config Files**
+
+| Type | Description |
+|------|-------------|
+| `yaml`, `yml` | YAML files |
+
+**CAD/Design**
+
+| Type | Description |
+|------|-------------|
+| `svg` | Scalable Vector Graphics |
+
+**Image Types**
+
+| Type | Description |
+|------|-------------|
+| `jpg`, `jpeg` | JPEG images |
+| `png` | PNG images |
+| `gif` | GIF images |
+| `webp` | WebP images |
+
+**Video Types**
+
+| Type | Description |
+|------|-------------|
+| `mp4` | MP4 videos |
+| `mov` | QuickTime videos |
+| `avi` | AVI videos |
+| `mkv` | Matroska videos |
+| `webm` | WebM videos |
+
+**Audio Types**
+
+| Type | Description |
+|------|-------------|
+| `mp3` | MP3 audio |
+| `wav` | WAV audio |
 
 #### `NitroDocumentPickerResult`
 
