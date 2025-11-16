@@ -10,6 +10,8 @@
 // Forward declarations of C++ defined types
 // Forward declaration of `HybridNitroDocumentPickerSpec` to properly resolve imports.
 namespace margelo::nitro::nitrodocumentpicker { class HybridNitroDocumentPickerSpec; }
+// Forward declaration of `NitroDocumentPickerDirectoryResult` to properly resolve imports.
+namespace margelo::nitro::nitrodocumentpicker { struct NitroDocumentPickerDirectoryResult; }
 // Forward declaration of `NitroDocumentPickerOptions` to properly resolve imports.
 namespace margelo::nitro::nitrodocumentpicker { struct NitroDocumentPickerOptions; }
 // Forward declaration of `NitroDocumentPickerResult` to properly resolve imports.
@@ -19,6 +21,7 @@ namespace margelo::nitro::nitrodocumentpicker { enum class NitroDocumentType; }
 
 // Include C++ defined types
 #include "HybridNitroDocumentPickerSpec.hpp"
+#include "NitroDocumentPickerDirectoryResult.hpp"
 #include "NitroDocumentPickerOptions.hpp"
 #include "NitroDocumentPickerResult.hpp"
 #include "NitroDocumentType.hpp"

@@ -17,12 +17,15 @@
 namespace margelo::nitro::nitrodocumentpicker { struct NitroDocumentPickerResult; }
 // Forward declaration of `NitroDocumentPickerOptions` to properly resolve imports.
 namespace margelo::nitro::nitrodocumentpicker { struct NitroDocumentPickerOptions; }
+// Forward declaration of `NitroDocumentPickerDirectoryResult` to properly resolve imports.
+namespace margelo::nitro::nitrodocumentpicker { struct NitroDocumentPickerDirectoryResult; }
 
 #include <NitroModules/Promise.hpp>
 #include <variant>
 #include "NitroDocumentPickerResult.hpp"
 #include <vector>
 #include "NitroDocumentPickerOptions.hpp"
+#include "NitroDocumentPickerDirectoryResult.hpp"
 
 namespace margelo::nitro::nitrodocumentpicker {
 
@@ -56,6 +59,7 @@ namespace margelo::nitro::nitrodocumentpicker {
     public:
       // Methods
       virtual std::shared_ptr<Promise<std::variant<NitroDocumentPickerResult, std::vector<NitroDocumentPickerResult>>>> pick(const NitroDocumentPickerOptions& options) = 0;
+      virtual std::shared_ptr<Promise<NitroDocumentPickerDirectoryResult>> pickDirectory() = 0;
 
     protected:
       // Hybrid Setup

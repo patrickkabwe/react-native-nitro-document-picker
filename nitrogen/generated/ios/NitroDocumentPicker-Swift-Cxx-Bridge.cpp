@@ -29,6 +29,14 @@ namespace margelo::nitro::nitrodocumentpicker::bridge::swift {
     };
   }
   
+  // pragma MARK: std::function<void(const NitroDocumentPickerDirectoryResult& /* result */)>
+  Func_void_NitroDocumentPickerDirectoryResult create_Func_void_NitroDocumentPickerDirectoryResult(void* _Nonnull swiftClosureWrapper) {
+    auto swiftClosure = NitroDocumentPicker::Func_void_NitroDocumentPickerDirectoryResult::fromUnsafe(swiftClosureWrapper);
+    return [swiftClosure = std::move(swiftClosure)](const NitroDocumentPickerDirectoryResult& result) mutable -> void {
+      swiftClosure.call(result);
+    };
+  }
+  
   // pragma MARK: std::shared_ptr<margelo::nitro::nitrodocumentpicker::HybridNitroDocumentPickerSpec>
   std::shared_ptr<margelo::nitro::nitrodocumentpicker::HybridNitroDocumentPickerSpec> create_std__shared_ptr_margelo__nitro__nitrodocumentpicker__HybridNitroDocumentPickerSpec_(void* _Nonnull swiftUnsafePointer) {
     NitroDocumentPicker::HybridNitroDocumentPickerSpec_cxx swiftPart = NitroDocumentPicker::HybridNitroDocumentPickerSpec_cxx::fromUnsafe(swiftUnsafePointer);

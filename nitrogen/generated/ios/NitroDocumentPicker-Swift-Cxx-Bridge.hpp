@@ -10,6 +10,8 @@
 // Forward declarations of C++ defined types
 // Forward declaration of `HybridNitroDocumentPickerSpec` to properly resolve imports.
 namespace margelo::nitro::nitrodocumentpicker { class HybridNitroDocumentPickerSpec; }
+// Forward declaration of `NitroDocumentPickerDirectoryResult` to properly resolve imports.
+namespace margelo::nitro::nitrodocumentpicker { struct NitroDocumentPickerDirectoryResult; }
 // Forward declaration of `NitroDocumentPickerResult` to properly resolve imports.
 namespace margelo::nitro::nitrodocumentpicker { struct NitroDocumentPickerResult; }
 // Forward declaration of `NitroDocumentType` to properly resolve imports.
@@ -21,6 +23,7 @@ namespace NitroDocumentPicker { class HybridNitroDocumentPickerSpec_cxx; }
 
 // Include C++ defined types
 #include "HybridNitroDocumentPickerSpec.hpp"
+#include "NitroDocumentPickerDirectoryResult.hpp"
 #include "NitroDocumentPickerResult.hpp"
 #include "NitroDocumentType.hpp"
 #include <NitroModules/Promise.hpp>
@@ -156,6 +159,40 @@ namespace margelo::nitro::nitrodocumentpicker::bridge::swift {
     return std::optional<bool>(value);
   }
   
+  // pragma MARK: std::shared_ptr<Promise<NitroDocumentPickerDirectoryResult>>
+  /**
+   * Specialized version of `std::shared_ptr<Promise<NitroDocumentPickerDirectoryResult>>`.
+   */
+  using std__shared_ptr_Promise_NitroDocumentPickerDirectoryResult__ = std::shared_ptr<Promise<NitroDocumentPickerDirectoryResult>>;
+  inline std::shared_ptr<Promise<NitroDocumentPickerDirectoryResult>> create_std__shared_ptr_Promise_NitroDocumentPickerDirectoryResult__() {
+    return Promise<NitroDocumentPickerDirectoryResult>::create();
+  }
+  inline PromiseHolder<NitroDocumentPickerDirectoryResult> wrap_std__shared_ptr_Promise_NitroDocumentPickerDirectoryResult__(std::shared_ptr<Promise<NitroDocumentPickerDirectoryResult>> promise) {
+    return PromiseHolder<NitroDocumentPickerDirectoryResult>(std::move(promise));
+  }
+  
+  // pragma MARK: std::function<void(const NitroDocumentPickerDirectoryResult& /* result */)>
+  /**
+   * Specialized version of `std::function<void(const NitroDocumentPickerDirectoryResult&)>`.
+   */
+  using Func_void_NitroDocumentPickerDirectoryResult = std::function<void(const NitroDocumentPickerDirectoryResult& /* result */)>;
+  /**
+   * Wrapper class for a `std::function<void(const NitroDocumentPickerDirectoryResult& / * result * /)>`, this can be used from Swift.
+   */
+  class Func_void_NitroDocumentPickerDirectoryResult_Wrapper final {
+  public:
+    explicit Func_void_NitroDocumentPickerDirectoryResult_Wrapper(std::function<void(const NitroDocumentPickerDirectoryResult& /* result */)>&& func): _function(std::make_shared<std::function<void(const NitroDocumentPickerDirectoryResult& /* result */)>>(std::move(func))) {}
+    inline void call(NitroDocumentPickerDirectoryResult result) const {
+      _function->operator()(result);
+    }
+  private:
+    std::shared_ptr<std::function<void(const NitroDocumentPickerDirectoryResult& /* result */)>> _function;
+  };
+  Func_void_NitroDocumentPickerDirectoryResult create_Func_void_NitroDocumentPickerDirectoryResult(void* _Nonnull swiftClosureWrapper);
+  inline Func_void_NitroDocumentPickerDirectoryResult_Wrapper wrap_Func_void_NitroDocumentPickerDirectoryResult(Func_void_NitroDocumentPickerDirectoryResult value) {
+    return Func_void_NitroDocumentPickerDirectoryResult_Wrapper(std::move(value));
+  }
+  
   // pragma MARK: std::shared_ptr<margelo::nitro::nitrodocumentpicker::HybridNitroDocumentPickerSpec>
   /**
    * Specialized version of `std::shared_ptr<margelo::nitro::nitrodocumentpicker::HybridNitroDocumentPickerSpec>`.
@@ -175,6 +212,15 @@ namespace margelo::nitro::nitrodocumentpicker::bridge::swift {
   }
   inline Result_std__shared_ptr_Promise_std__variant_NitroDocumentPickerResult__std__vector_NitroDocumentPickerResult_____ create_Result_std__shared_ptr_Promise_std__variant_NitroDocumentPickerResult__std__vector_NitroDocumentPickerResult_____(const std::exception_ptr& error) {
     return Result<std::shared_ptr<Promise<std::variant<NitroDocumentPickerResult, std::vector<NitroDocumentPickerResult>>>>>::withError(error);
+  }
+  
+  // pragma MARK: Result<std::shared_ptr<Promise<NitroDocumentPickerDirectoryResult>>>
+  using Result_std__shared_ptr_Promise_NitroDocumentPickerDirectoryResult___ = Result<std::shared_ptr<Promise<NitroDocumentPickerDirectoryResult>>>;
+  inline Result_std__shared_ptr_Promise_NitroDocumentPickerDirectoryResult___ create_Result_std__shared_ptr_Promise_NitroDocumentPickerDirectoryResult___(const std::shared_ptr<Promise<NitroDocumentPickerDirectoryResult>>& value) {
+    return Result<std::shared_ptr<Promise<NitroDocumentPickerDirectoryResult>>>::withValue(value);
+  }
+  inline Result_std__shared_ptr_Promise_NitroDocumentPickerDirectoryResult___ create_Result_std__shared_ptr_Promise_NitroDocumentPickerDirectoryResult___(const std::exception_ptr& error) {
+    return Result<std::shared_ptr<Promise<NitroDocumentPickerDirectoryResult>>>::withError(error);
   }
 
 } // namespace margelo::nitro::nitrodocumentpicker::bridge::swift

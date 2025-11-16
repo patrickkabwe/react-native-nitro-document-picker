@@ -18,6 +18,8 @@ namespace margelo::nitro::nitrodocumentpicker { struct NitroDocumentPickerResult
 namespace margelo::nitro::nitrodocumentpicker { struct NitroDocumentPickerOptions; }
 // Forward declaration of `NitroDocumentType` to properly resolve imports.
 namespace margelo::nitro::nitrodocumentpicker { enum class NitroDocumentType; }
+// Forward declaration of `NitroDocumentPickerDirectoryResult` to properly resolve imports.
+namespace margelo::nitro::nitrodocumentpicker { struct NitroDocumentPickerDirectoryResult; }
 
 #include <NitroModules/Promise.hpp>
 #include <variant>
@@ -27,6 +29,7 @@ namespace margelo::nitro::nitrodocumentpicker { enum class NitroDocumentType; }
 #include "NitroDocumentPickerOptions.hpp"
 #include "NitroDocumentType.hpp"
 #include <optional>
+#include "NitroDocumentPickerDirectoryResult.hpp"
 
 #include "NitroDocumentPicker-Swift-Cxx-Umbrella.hpp"
 
@@ -69,6 +72,14 @@ namespace margelo::nitro::nitrodocumentpicker {
     // Methods
     inline std::shared_ptr<Promise<std::variant<NitroDocumentPickerResult, std::vector<NitroDocumentPickerResult>>>> pick(const NitroDocumentPickerOptions& options) override {
       auto __result = _swiftPart.pick(options);
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
+    inline std::shared_ptr<Promise<NitroDocumentPickerDirectoryResult>> pickDirectory() override {
+      auto __result = _swiftPart.pickDirectory();
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
