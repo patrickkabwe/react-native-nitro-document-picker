@@ -11,6 +11,7 @@ import UniformTypeIdentifiers
 
 class NitroDocumentPickerImpl: NSObject {
     private var continuation: CheckedContinuation<[NitroDocumentPickerResult], Error>?
+    private var directoryContinuation: CheckedContinuation<NitroDocumentPickerDirectoryResult, Error>?
     private var options: NitroDocumentPickerOptions?
     
     @MainActor
@@ -48,8 +49,31 @@ class NitroDocumentPickerImpl: NSObject {
         }
     }
     
+    @MainActor
+    func pickDirectory() async throws -> NitroDocumentPickerDirectoryResult {
+        return try await withCheckedThrowingContinuation { continuation in
+            self.cleanupDirectoryContinuation()
+            self.directoryContinuation = continuation
+            
+            do {
+                let rootVC = try self.getRootViewController()
+                let picker = UIDocumentPickerViewController(forOpeningContentTypes: [UTType.folder])
+                picker.allowsMultipleSelection = false
+                picker.delegate = self
+                
+                rootVC.present(picker, animated: true)
+            } catch {
+                self.resumeDirectoryWithError(error)
+            }
+        }
+    }
+    
     private func cleanupContinuation() {
         continuation = nil
+    }
+    
+    private func cleanupDirectoryContinuation() {
+        directoryContinuation = nil
     }
     
     private func resumeWithError(_ error: Error) {
@@ -57,14 +81,52 @@ class NitroDocumentPickerImpl: NSObject {
         cleanupContinuation()
     }
     
+    private func resumeDirectoryWithError(_ error: Error) {
+        directoryContinuation?.resume(throwing: error)
+        cleanupDirectoryContinuation()
+    }
+    
     private func resumeWithResult(_ result: [NitroDocumentPickerResult]) {
         continuation?.resume(returning: result)
         cleanupContinuation()
+    }
+    
+    private func resumeDirectoryWithResult(_ result: NitroDocumentPickerDirectoryResult) {
+        directoryContinuation?.resume(returning: result)
+        cleanupDirectoryContinuation()
     }
 }
 
 extension NitroDocumentPickerImpl: UIDocumentPickerDelegate {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        if directoryContinuation != nil {
+            guard let url = urls.first else {
+                resumeDirectoryWithError(RuntimeError.error(withMessage: "No directory selected"))
+                return
+            }
+            
+            Task {
+                do {
+                    let isAccessing = url.startAccessingSecurityScopedResource()
+                    defer {
+                        if isAccessing {
+                            url.stopAccessingSecurityScopedResource()
+                        }
+                    }
+                    
+                    let result = NitroDocumentPickerDirectoryResult(
+                        uri: url.absoluteString,
+                        name: url.lastPathComponent
+                    )
+                    
+                    self.resumeDirectoryWithResult(result)
+                } catch {
+                    self.resumeDirectoryWithError(error)
+                }
+            }
+            return
+        }
+        
         guard self.continuation != nil else {
             return
         }
@@ -127,7 +189,11 @@ extension NitroDocumentPickerImpl: UIDocumentPickerDelegate {
     }
 
     func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
-        resumeWithError(RuntimeError.error(withMessage: "Picker was cancelled"))
+        if directoryContinuation != nil {
+            resumeDirectoryWithError(RuntimeError.error(withMessage: "Picker was cancelled"))
+        } else {
+            resumeWithError(RuntimeError.error(withMessage: "Picker was cancelled"))
+        }
     }
 }
 
