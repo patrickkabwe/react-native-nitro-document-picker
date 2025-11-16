@@ -43,6 +43,10 @@ abstract class HybridNitroDocumentPickerSpec: HybridObject() {
   @DoNotStrip
   @Keep
   abstract fun pick(options: NitroDocumentPickerOptions): Promise<Variant_NitroDocumentPickerResult_Array_NitroDocumentPickerResult_>
+  
+  @DoNotStrip
+  @Keep
+  abstract fun pickDirectory(): Promise<NitroDocumentPickerDirectoryResult>
 
   private external fun initHybrid(): HybridData
 

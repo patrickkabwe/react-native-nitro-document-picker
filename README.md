@@ -12,6 +12,7 @@ A React Native document picker built with [Nitro Modules](https://github.com/mro
 - 📱 **Cross Platform**: Works on both iOS and Android
 - 📄 **Multiple File Types**: Support for PDF, DOCX, TXT, CSV, images, videos, and audio files
 - 🔢 **Multiple Selection**: Pick single or multiple documents at once
+- 📁 **Directory Picking**: Pick directories/folders on both iOS and Android
 - ☁️ **Cloud Storage Support**: Access files from iCloud Drive, Google Drive, Dropbox, OneDrive, and other cloud providers
 - 📱 **Modern Architecture**: Built on React Native's new architecture but still supports the old architecture
 
@@ -88,6 +89,21 @@ Opens the document picker with the specified options.
 **Returns:** 
 - `Promise<NitroDocumentPickerResult>` when `multiple` is `false` or not specified
 - `Promise<NitroDocumentPickerResult[]>` when `multiple` is `true`
+
+### `NitroDocumentPicker.pickDirectory()`
+
+Opens a directory picker to select a folder/directory.
+
+**Parameters:**
+
+- None
+
+**Returns:** 
+- `Promise<NitroDocumentPickerDirectoryResult>` - The selected directory information
+
+**Note:** 
+- On iOS, only single directory selection is supported
+- On Android, uses the system directory tree picker
 
 ### Types
 
@@ -252,6 +268,23 @@ interface NitroDocumentPickerResult {
 }
 ```
 
+#### `NitroDocumentPickerDirectoryResult`
+
+```typescript
+interface NitroDocumentPickerDirectoryResult {
+  /**
+   * The URI of the directory
+   */
+  uri: string
+
+  /**
+   * The name of the directory
+   * @example 'MyFolder'
+   */
+  name: string
+}
+```
+
 ## 💡 Usage Examples
 
 ### Single File Selection
@@ -360,6 +393,25 @@ const pickSpecificMediaTypes = async () => {
 }
 ```
 
+### Pick Directory
+
+```typescript
+const pickDirectory = async () => {
+  try {
+    const directory = await NitroDocumentPicker.pickDirectory()
+
+    console.log('Selected directory:', directory.name)
+    console.log('Directory URI:', directory.uri)
+  } catch (error) {
+    if (error.message.includes('cancelled')) {
+      console.log('User cancelled directory selection')
+    } else {
+      console.error('Error:', error)
+    }
+  }
+}
+```
+
 ## 🔧 Error Handling
 
 The document picker can throw errors in various scenarios. Always wrap your calls in try-catch blocks:
@@ -387,12 +439,14 @@ const handleDocumentPicking = async () => {
 ### iOS
 
 - Uses `UIDocumentPickerViewController` for native document picking
+- Uses `UIDocumentPickerViewController` with `UTType.folder` for directory picking
 - Supports all document types through UTType system
 - Provides native iOS document picker UI
 
 ### Android
 
 - Uses `Intent.ACTION_OPEN_DOCUMENT` for document selection
+- Uses `Intent.ACTION_OPEN_DOCUMENT_TREE` for directory selection
 - Supports `localOnly` option to restrict to local files
 - Integrates with Android's document providers
 
@@ -433,7 +487,15 @@ bun run android
 
 4. **Android permissions**
    - The package handles permissions automatically
+   - No manifest permissions are required for document or directory picking
+   - `ACTION_OPEN_DOCUMENT` and `ACTION_OPEN_DOCUMENT_TREE` use the Storage Access Framework (SAF) which handles permissions automatically
    - Ensure your app targets Android API 21 or higher
+
+5. **Android directory picking privacy warning**
+   - Android shows a privacy warning ("To protect your privacy, choose another folder") for directories that contain files
+   - This is expected Android behavior to protect user privacy
+   - Users can still select directories by tapping "Use this folder" or "Allow access"
+   - This warning cannot be disabled as it's a core Android security feature
 
 ## 🤝 Contributing
 

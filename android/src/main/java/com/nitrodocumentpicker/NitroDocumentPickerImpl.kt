@@ -15,6 +15,7 @@ import com.facebook.react.bridge.LifecycleEventListener
 import com.facebook.react.bridge.ReactApplicationContext
 import com.margelo.nitro.nitrodocumentpicker.NitroDocumentPickerOptions
 import com.margelo.nitro.nitrodocumentpicker.NitroDocumentPickerResult
+import com.margelo.nitro.nitrodocumentpicker.NitroDocumentPickerDirectoryResult
 import com.margelo.nitro.nitrodocumentpicker.NitroDocumentType
 import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.Dispatchers
@@ -31,7 +32,9 @@ class NitroDocumentPicker(
 ) : LifecycleEventListener {
 
     private var pickerContinuation: CancellableContinuation<Array<NitroDocumentPickerResult>>? = null
+    private var directoryContinuation: CancellableContinuation<NitroDocumentPickerDirectoryResult>? = null
     private var launcher: ActivityResultLauncher<Intent>? = null
+    private var directoryLauncher: ActivityResultLauncher<Intent>? = null
 
     init {
         context.addLifecycleEventListener(this)
@@ -74,6 +77,21 @@ class NitroDocumentPicker(
             launcher?.launch(intent)
         }
 
+    suspend fun pickDirectory(): NitroDocumentPickerDirectoryResult =
+        suspendCancellableCoroutine { continuation ->
+            directoryContinuation = continuation
+            continuation.invokeOnCancellation {
+                directoryContinuation = null
+            }
+
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).apply {
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    putExtra(DocumentsContract.EXTRA_INITIAL_URI, getInitialUri())
+                }
+            }
+            directoryLauncher?.launch(intent)
+        }
+
     private fun getInitialUri(): Uri? {
         val externalFilesDir = context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
         return externalFilesDir?.toUri()
@@ -83,6 +101,7 @@ class NitroDocumentPicker(
         if (resultCode == Activity.RESULT_OK && data != null) {
             val uris = mutableListOf<Uri>()
 
+            // For file picking, handle multiple files
             data.clipData?.let { clipData ->
                 for (i in 0 until clipData.itemCount) {
                     uris.add(clipData.getItemAt(i).uri)
@@ -112,14 +131,47 @@ class NitroDocumentPicker(
         pickerContinuation = null
     }
 
+    private suspend fun handleDirectoryPickerResult(resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            val treeUri = data.data
+            if (treeUri != null && DocumentsContract.isTreeUri(treeUri)) {
+                coroutineScope {
+                    val result = async(Dispatchers.IO) {
+                        resolveDirectoryUriToResult(treeUri)
+                    }.await()
+                    
+                    if (directoryContinuation?.isActive == true) {
+                        directoryContinuation?.resume(result)
+                    }
+                }
+            } else {
+                directoryContinuation?.cancel(CancellationException("Invalid directory URI"))
+            }
+        } else {
+            directoryContinuation?.cancel(CancellationException("User cancelled picker"))
+        }
+        directoryContinuation = null
+    }
+
     override fun onHostResume() {
         val activity = context.currentActivity
-        if (launcher == null && activity is ComponentActivity) {
-            launcher = activity.activityResultRegistry.register(
-                ACTIVITY_RESULT_KEY, ActivityResultContracts.StartActivityForResult()
-            ) { result ->
-                activity.lifecycleScope.launch(context = Dispatchers.Main) {
-                    handlePickerResult(result.resultCode, result.data)
+        if (activity is ComponentActivity) {
+            if (launcher == null) {
+                launcher = activity.activityResultRegistry.register(
+                    ACTIVITY_RESULT_KEY, ActivityResultContracts.StartActivityForResult()
+                ) { result ->
+                    activity.lifecycleScope.launch(context = Dispatchers.Main) {
+                        handlePickerResult(result.resultCode, result.data)
+                    }
+                }
+            }
+            if (directoryLauncher == null) {
+                directoryLauncher = activity.activityResultRegistry.register(
+                    DIRECTORY_RESULT_KEY, ActivityResultContracts.StartActivityForResult()
+                ) { result ->
+                    activity.lifecycleScope.launch(context = Dispatchers.Main) {
+                        handleDirectoryPickerResult(result.resultCode, result.data)
+                    }
                 }
             }
         }
@@ -130,10 +182,13 @@ class NitroDocumentPicker(
     override fun onHostDestroy() {
         launcher?.unregister()
         launcher = null
+        directoryLauncher?.unregister()
+        directoryLauncher = null
     }
 
     private fun resolveUriToResult(uri: Uri): NitroDocumentPickerResult {
         val contentResolver = context.contentResolver
+        
         val projection = arrayOf(
             OpenableColumns.DISPLAY_NAME,
             OpenableColumns.SIZE
@@ -151,6 +206,35 @@ class NitroDocumentPicker(
             name = fileName,
             mimeType = contentResolver.getType(uri) ?: "",
             size = sizeFromCursor.toDouble()
+        )
+    }
+
+    private suspend fun resolveDirectoryUriToResult(uri: Uri): NitroDocumentPickerDirectoryResult {
+        val contentResolver = context.contentResolver
+        
+        // Query the DocumentsContract to get the display name
+        val documentId = DocumentsContract.getTreeDocumentId(uri)
+        val documentUri = DocumentsContract.buildDocumentUriUsingTree(uri, documentId)
+        
+        var fileName = "Folder"
+        contentResolver.query(
+            documentUri,
+            arrayOf(DocumentsContract.Document.COLUMN_DISPLAY_NAME),
+            null,
+            null,
+            null
+        )?.use { cursor ->
+            if (cursor.moveToFirst()) {
+                val nameIndex = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_DISPLAY_NAME)
+                if (nameIndex >= 0) {
+                    fileName = cursor.getString(nameIndex) ?: "Folder"
+                }
+            }
+        }
+        
+        return NitroDocumentPickerDirectoryResult(
+            uri = uri.toString(),
+            name = fileName
         )
     }
 
@@ -212,5 +296,6 @@ class NitroDocumentPicker(
     companion object {
         const val TAG = "NitroDocumentPicker"
         const val ACTIVITY_RESULT_KEY = "nitro-document-picker-result"
+        const val DIRECTORY_RESULT_KEY = "nitro-document-picker-directory-result"
     }
 }

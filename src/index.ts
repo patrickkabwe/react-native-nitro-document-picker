@@ -1,6 +1,6 @@
 import { NitroModules } from 'react-native-nitro-modules'
 import type { NitroDocumentPicker as NitroDocumentPickerSpec } from './specs/nitro-document-picker.nitro'
-import type { NitroDocumentPickerOptions, NitroDocumentPickerResult } from './types'
+import type { NitroDocumentPickerOptions, NitroDocumentPickerResult, NitroDocumentPickerDirectoryResult } from './types'
 export type * from './types'
 
 const nitroDocumentPicker =
@@ -12,6 +12,11 @@ function pick(options: NitroDocumentPickerOptions): Promise<NitroDocumentPickerR
     return nitroDocumentPicker.pick(options)
 }
 
+function pickDirectory(): Promise<NitroDocumentPickerDirectoryResult> {
+    return nitroDocumentPicker.pickDirectory()
+}
+
 export const NitroDocumentPicker = {
     pick,
+    pickDirectory,
 }

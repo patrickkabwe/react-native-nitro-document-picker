@@ -5,9 +5,8 @@
 //  Created by Patrick Kabwe on 6/7/2025.
 //
 
-import UIKit
+import Foundation
 import NitroModules
-import UniformTypeIdentifiers
 
 class HybridNitroDocumentPicker: HybridNitroDocumentPickerSpec {
     private let nitroDocPickerImpl = NitroDocumentPickerImpl()
@@ -24,6 +23,15 @@ class HybridNitroDocumentPicker: HybridNitroDocumentPickerSpec {
             let results = try await self.nitroDocPickerImpl.pick(options: options)
             
             return Variant_NitroDocumentPickerResult__NitroDocumentPickerResult_.first(results[0])
+        }
+    }
+    
+    func pickDirectory() throws -> Promise<NitroDocumentPickerDirectoryResult> {
+        return .async { @MainActor [weak self] in
+            guard let self = self else {
+                throw RuntimeError.error(withMessage: "HybridNitroDocumentPicker instance has been deallocated")
+            }
+            return try await self.nitroDocPickerImpl.pickDirectory()
         }
     }
 }

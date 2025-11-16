@@ -15,6 +15,7 @@ namespace margelo::nitro::nitrodocumentpicker {
     // load custom methods/properties
     registerHybrids(this, [](Prototype& prototype) {
       prototype.registerHybridMethod("pick", &HybridNitroDocumentPickerSpec::pick);
+      prototype.registerHybridMethod("pickDirectory", &HybridNitroDocumentPickerSpec::pickDirectory);
     });
   }
 

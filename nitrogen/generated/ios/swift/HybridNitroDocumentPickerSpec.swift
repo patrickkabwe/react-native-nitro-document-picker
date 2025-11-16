@@ -15,6 +15,7 @@ public protocol HybridNitroDocumentPickerSpec_protocol: HybridObject {
 
   // Methods
   func pick(options: NitroDocumentPickerOptions) throws -> Promise<Variant_NitroDocumentPickerResult__NitroDocumentPickerResult_>
+  func pickDirectory() throws -> Promise<NitroDocumentPickerDirectoryResult>
 }
 
 /// See ``HybridNitroDocumentPickerSpec``

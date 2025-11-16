@@ -9,6 +9,8 @@
 
 // Forward declaration of `NitroDocumentPickerResult` to properly resolve imports.
 namespace margelo::nitro::nitrodocumentpicker { struct NitroDocumentPickerResult; }
+// Forward declaration of `NitroDocumentPickerDirectoryResult` to properly resolve imports.
+namespace margelo::nitro::nitrodocumentpicker { struct NitroDocumentPickerDirectoryResult; }
 // Forward declaration of `NitroDocumentPickerOptions` to properly resolve imports.
 namespace margelo::nitro::nitrodocumentpicker { struct NitroDocumentPickerOptions; }
 // Forward declaration of `NitroDocumentType` to properly resolve imports.
@@ -22,6 +24,8 @@ namespace margelo::nitro::nitrodocumentpicker { enum class NitroDocumentType; }
 #include "JVariant_NitroDocumentPickerResult_Array_NitroDocumentPickerResult_.hpp"
 #include "JNitroDocumentPickerResult.hpp"
 #include <string>
+#include "NitroDocumentPickerDirectoryResult.hpp"
+#include "JNitroDocumentPickerDirectoryResult.hpp"
 #include "NitroDocumentPickerOptions.hpp"
 #include "JNitroDocumentPickerOptions.hpp"
 #include "NitroDocumentType.hpp"
@@ -56,6 +60,22 @@ namespace margelo::nitro::nitrodocumentpicker {
       auto __promise = Promise<std::variant<NitroDocumentPickerResult, std::vector<NitroDocumentPickerResult>>>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
         auto __result = jni::static_ref_cast<JVariant_NitroDocumentPickerResult_Array_NitroDocumentPickerResult_>(__boxedResult);
+        __promise->resolve(__result->toCpp());
+      });
+      __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
+        jni::JniException __jniError(__throwable);
+        __promise->reject(std::make_exception_ptr(__jniError));
+      });
+      return __promise;
+    }();
+  }
+  std::shared_ptr<Promise<NitroDocumentPickerDirectoryResult>> JHybridNitroDocumentPickerSpec::pickDirectory() {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>()>("pickDirectory");
+    auto __result = method(_javaPart);
+    return [&]() {
+      auto __promise = Promise<NitroDocumentPickerDirectoryResult>::create();
+      __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
+        auto __result = jni::static_ref_cast<JNitroDocumentPickerDirectoryResult>(__boxedResult);
         __promise->resolve(__result->toCpp());
       });
       __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {

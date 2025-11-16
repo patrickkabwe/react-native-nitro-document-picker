@@ -99,3 +99,15 @@ export type NitroDocumentPickerResult = {
      */
     size: number
 }
+
+export type NitroDocumentPickerDirectoryResult = {
+    /**
+     * The URI of the directory.
+     */
+    uri: string
+    /**
+     * The name of the directory.
+     * @example 'MyFolder'
+     */
+    name: string
+}
