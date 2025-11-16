@@ -85,7 +85,9 @@ Opens the document picker with the specified options.
 
 - `options` (NitroDocumentPickerOptions): Configuration options for the document picker
 
-**Returns:** `Promise<NitroDocumentPickerResult[]>`
+**Returns:** 
+- `Promise<NitroDocumentPickerResult>` when `multiple` is `false` or not specified
+- `Promise<NitroDocumentPickerResult[]>` when `multiple` is `true`
 
 ### Types
 
@@ -200,12 +202,10 @@ const pickSingleDocument = async () => {
       multiple: false,
     })
 
-    if (result.length > 0) {
-      const file = result[0]
-      console.log('Selected file:', file.name)
-      console.log('File size:', file.size, 'bytes')
-      console.log('MIME type:', file.mimeType)
-    }
+    console.log('Selected file:', result.name)
+    console.log('File URI:', result.uri)
+    console.log('File size:', result.size, 'bytes')
+    console.log('MIME type:', result.mimeType)
   } catch (error) {
     console.error('Error:', error)
   }
