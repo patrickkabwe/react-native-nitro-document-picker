@@ -1,3 +1,25 @@
+## [1.1.0](https://github.com/patrickkabwe/react-native-nitro-document-picker/compare/v1.0.1...v1.1.0) (2025-11-16)
+
+### ✨ Features
+
+* add comprehensive document type support and wildcard type ([8a3e53b](https://github.com/patrickkabwe/react-native-nitro-document-picker/commit/8a3e53b2343385b07c2b613df9bed638232103d7))
+* add support for images, videos, and audio ([74b4c5e](https://github.com/patrickkabwe/react-native-nitro-document-picker/commit/74b4c5ef9a6df8dd0a135e27b08c5a645ec7520f))
+* improve picker api and example ([2195743](https://github.com/patrickkabwe/react-native-nitro-document-picker/commit/2195743bebba2c132a766c8ca8ca231ef40c6f6d))
+* **ios:** improve cloud storage file handling ([3e391d2](https://github.com/patrickkabwe/react-native-nitro-document-picker/commit/3e391d2dd1ff56625775ec767f8f510cc37c4dbd))
+* update Podfile.lock and extend NitroDocumentType to support image, video, and audio file types ([598883f](https://github.com/patrickkabwe/react-native-nitro-document-picker/commit/598883f2bd5663b3893ee42adf744e3f0dc03287))
+
+### 🐛 Bug Fixes
+
+* correct mime type check and add error handling for unsupported document types ([f620463](https://github.com/patrickkabwe/react-native-nitro-document-picker/commit/f6204637464b35dbb43cfc8661b2a72d2765d5d4))
+* enhance CSS type handling for compatibility with iOS 18.0 and earlier ([fe1d5c4](https://github.com/patrickkabwe/react-native-nitro-document-picker/commit/fe1d5c497b8ef0fab3f5782255cdd217fa0d0d85))
+
+### 🔄 Code Refactors
+
+* remove maxFileSize option from NitroDocumentPickerOptions and implementation ([3f905e7](https://github.com/patrickkabwe/react-native-nitro-document-picker/commit/3f905e78557eec8a0df377ba0075e00d93eb1539))
+* rename `path` to `uri` ([a336188](https://github.com/patrickkabwe/react-native-nitro-document-picker/commit/a3361880cdf5713c062b54946f1bce31fe191448))
+* update document type handling to use 'all' instead of '*' for selecting all file types ([6234a42](https://github.com/patrickkabwe/react-native-nitro-document-picker/commit/6234a4274fe4b84863357ad4767426969163b975))
+* update mime type check to use lowercase comparison for 'all' in document types ([3a8f53d](https://github.com/patrickkabwe/react-native-nitro-document-picker/commit/3a8f53db500cd73f2c7a7a870baa76b8537cb96a))
+
 ## [1.0.1](https://github.com/patrickkabwe/react-native-nitro-document-picker/compare/v1.0.0...v1.0.1) (2025-06-14)
 
 ### 📚 Documentation
