@@ -1,3 +1,22 @@
+## [1.2.0](https://github.com/patrickkabwe/react-native-nitro-document-picker/compare/v1.1.1...v1.2.0) (2025-11-16)
+
+### ✨ Features
+
+* add pickDirectory method and NitroDocumentPickerDirectoryResult type ([3edb7db](https://github.com/patrickkabwe/react-native-nitro-document-picker/commit/3edb7db302d3a10a5bdbdfb6e15f9bcd3cb451fb))
+* **android:** implement pickDirectory method for directory selection ([c080f66](https://github.com/patrickkabwe/react-native-nitro-document-picker/commit/c080f66f4888fb77a5382ba0f99cea25b12726dd))
+* **ios:** implement pickDirectory method for directory selection ([355d731](https://github.com/patrickkabwe/react-native-nitro-document-picker/commit/355d7310fdee1214ec878e4371ec3cd058044209))
+
+### 📚 Documentation
+
+* add pickDirectory method documentation and usage examples ([fe35ae8](https://github.com/patrickkabwe/react-native-nitro-document-picker/commit/fe35ae81b8ad4b1478d24c1accbb4247e8ba6fe9))
+* **example:** add directory picking functionality to example app ([b260396](https://github.com/patrickkabwe/react-native-nitro-document-picker/commit/b2603962b36154df1ef3d03725c25f76034e42ee))
+* update README with Android directory picking permissions and privacy warning details ([b41b57d](https://github.com/patrickkabwe/react-native-nitro-document-picker/commit/b41b57d46fdb0f5263ad70081c999c4ea4433ba3))
+
+### 🛠️ Other changes
+
+* regenerate nitro bindings for pickDirectory method ([f5c5742](https://github.com/patrickkabwe/react-native-nitro-document-picker/commit/f5c57422055a0b124c2c47c1b7c06c696e9a89b2))
+* update NitroDocumentPicker to version 1.1.1 in Podfile.lock ([3af1638](https://github.com/patrickkabwe/react-native-nitro-document-picker/commit/3af16385b3b5c7aa92c37cd40ea5f0c40f813e13))
+
 ## [1.1.1](https://github.com/patrickkabwe/react-native-nitro-document-picker/compare/v1.1.0...v1.1.1) (2025-11-16)
 
 ### 📚 Documentation
