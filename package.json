@@ -58,7 +58,7 @@
     "@types/react": "^19.0.10",
     "nitrogen": "^0.31.6",
     "react": "19.0.0",
-    "react-native": "0.79.3",
+    "react-native": "0.82.1",
     "react-native-builder-bob": "^0.37.0",
     "react-native-nitro-modules": "^0.31.6",
     "conventional-changelog-conventionalcommits": "^9.0.0",
