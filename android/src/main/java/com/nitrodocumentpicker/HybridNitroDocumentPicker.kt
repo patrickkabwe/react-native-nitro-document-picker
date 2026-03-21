@@ -5,20 +5,20 @@ import com.margelo.nitro.core.Promise
 import com.margelo.nitro.nitrodocumentpicker.HybridNitroDocumentPickerSpec
 import com.margelo.nitro.nitrodocumentpicker.NitroDocumentPickerOptions
 import com.margelo.nitro.nitrodocumentpicker.NitroDocumentPickerDirectoryResult
-import com.margelo.nitro.nitrodocumentpicker.Variant_NitroDocumentPickerResult_Array_NitroDocumentPickerResult_
+import com.margelo.nitro.nitrodocumentpicker.Variant_Array_NitroDocumentPickerResult__NitroDocumentPickerResult
 
 class HybridNitroDocumentPicker: HybridNitroDocumentPickerSpec() {
     val context = NitroModules.applicationContext ?: throw Exception("Context not found")
     val picker = NitroDocumentPicker(context)
 
-    override fun pick(options: NitroDocumentPickerOptions): Promise<Variant_NitroDocumentPickerResult_Array_NitroDocumentPickerResult_> {
+    override fun pick(options: NitroDocumentPickerOptions): Promise<Variant_Array_NitroDocumentPickerResult__NitroDocumentPickerResult> {
         return Promise.async {
             try {
                 val results = picker.pick(options)
                 if (options.multiple == true) {
-                    Variant_NitroDocumentPickerResult_Array_NitroDocumentPickerResult_.Second(results)
+                    Variant_Array_NitroDocumentPickerResult__NitroDocumentPickerResult.First(results)
                 } else {
-                    Variant_NitroDocumentPickerResult_Array_NitroDocumentPickerResult_.First(results[0])
+                    Variant_Array_NitroDocumentPickerResult__NitroDocumentPickerResult.Second(results[0])
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -26,6 +26,7 @@ class HybridNitroDocumentPicker: HybridNitroDocumentPickerSpec() {
             }
         }
     }
+
 
     override fun pickDirectory(): Promise<NitroDocumentPickerDirectoryResult> {
         return Promise.async {
