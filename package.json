@@ -62,7 +62,7 @@
     "nitrogen": "^0.35.3",
     "react": "19.0.0",
     "react-native": "0.79.3",
-    "react-native-builder-bob": "^0.37.0",
+    "react-native-builder-bob": "^0.41.0",
     "react-native-nitro-modules": "^0.35.3",
     "conventional-changelog-conventionalcommits": "^9.3.1",
     "semantic-release": "^25.0.2",
