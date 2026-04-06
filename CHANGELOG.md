@@ -1,3 +1,9 @@
+## [1.2.1](https://github.com/patrickkabwe/react-native-nitro-document-picker/compare/v1.2.0...v1.2.1) (2026-04-06)
+
+### 🛠️ Other changes
+
+* add Node.js setup to GitHub Actions workflow and update import syntax in nitro-document-picker ([e26ef6f](https://github.com/patrickkabwe/react-native-nitro-document-picker/commit/e26ef6fd201d4556a661aeb29ed40f82d309a8f5))
+
 ## [1.2.0](https://github.com/patrickkabwe/react-native-nitro-document-picker/compare/v1.1.1...v1.2.0) (2025-11-16)
 
 ### ✨ Features
