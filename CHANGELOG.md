@@ -1,3 +1,10 @@
+## [1.2.3](https://github.com/patrickkabwe/react-native-nitro-document-picker/compare/v1.2.2...v1.2.3) (2026-04-06)
+
+### 🛠️ Other changes
+
+* **deps:** update dependencies in bun.lock and package.json ([c065056](https://github.com/patrickkabwe/react-native-nitro-document-picker/commit/c065056b38c82bb240e7904c4f06f52f7fc69430))
+* **deps:** update react-native-nitro-modules version to 0.35.3 in bun.lock and package.json ([dc87bca](https://github.com/patrickkabwe/react-native-nitro-document-picker/commit/dc87bcab1349e2bf8111ec1c5d013a1837774284))
+
 ## [1.2.2](https://github.com/patrickkabwe/react-native-nitro-document-picker/compare/v1.2.1...v1.2.2) (2026-04-06)
 
 ### 🛠️ Other changes
