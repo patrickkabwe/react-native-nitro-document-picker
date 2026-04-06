@@ -41,7 +41,10 @@
   "workspaces": [
     "example"
   ],
-  "repository": "https://github.com/patrickkabwe/react-native-nitro-document-picker.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/patrickkabwe/react-native-nitro-document-picker.git"
+  },
   "author": "Patrick Kabwe",
   "license": "MIT",
   "bugs": "https://github.com/patrickkabwe/react-native-nitro-document-picker/issues",
