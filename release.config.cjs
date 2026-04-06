@@ -27,6 +27,7 @@ module.exports = {
                 ].concat(rules.map(({ type, release }) => ({ type, release }))),
             },
         ],
+        '@semantic-release/npm',
         [
             '@semantic-release/release-notes-generator',
             {
@@ -49,7 +50,6 @@ module.exports = {
                 changelogFile: 'CHANGELOG.md',
             },
         ],
-        '@semantic-release/npm',
         '@semantic-release/github',
         [
             '@semantic-release/git',
